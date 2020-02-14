@@ -1,3 +1,4 @@
+import { Figurina } from './../../Modules/figurina';
 import { Component, OnInit } from '@angular/core';
 import { AlbumService } from '../../Services/album.service';
 
@@ -6,9 +7,10 @@ import { AlbumService } from '../../Services/album.service';
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.css']
 })
+
 export class AlbumComponent implements OnInit {
 
-  public figurine: String[];
+  public figurine: Figurina[];
   private service: AlbumService
 
   constructor(service: AlbumService) {
@@ -18,5 +20,4 @@ export class AlbumComponent implements OnInit {
   ngOnInit() {
     this.figurine = this.service.getFigurine()
   }
-
 }

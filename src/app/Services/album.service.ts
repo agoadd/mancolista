@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs'
+import { Figurina } from '../Modules/figurina';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -7,9 +8,16 @@ export class AlbumService {
 
   constructor() { }
 
-  getFigurine(): String[] {
-    var figurine = ['1', '2', '3', '4', '5'];
-    return figurine
+  getFigurine(): Figurina[] {
+    var figurine: Figurina[] = [
+      { id: '1', descrizione: 'pippo', count: 0 },
+      { id: '2', descrizione: 'pippo', count: 0 },
+      { id: '3', descrizione: 'pippo', count: 0 },
+      { id: '4', descrizione: 'pippo', count: 0 },
+      { id: '5', descrizione: 'pippo', count: 0 },
+      { id: '6', descrizione: 'pippo', count: 0 },
+      { id: '7', descrizione: 'pippo', count: 0 },];
+    return figurine;
   }
 
 }
