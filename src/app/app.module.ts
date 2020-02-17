@@ -8,8 +8,8 @@ import { AlbumComponent } from './components/album/album.component';
 @NgModule({
    declarations: [
       AppComponent,
-      AlbumComponent
-   ],
+      AlbumComponent,
+      ],
    imports: [
       BrowserModule,
       AppRoutingModule
