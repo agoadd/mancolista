@@ -1,6 +1,7 @@
+import { AlbumService } from './../../Services/album.service';
 import { Figurina } from './../../Modules/figurina';
 import { Component, OnInit } from '@angular/core';
-import { AlbumService } from '../../Services/album.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-album',
@@ -11,13 +12,17 @@ import { AlbumService } from '../../Services/album.service';
 export class AlbumComponent implements OnInit {
 
   public figurine: Figurina[];
-  private service: AlbumService
 
-  constructor(service: AlbumService) {
-    this.service = service
-  }
+  constructor(private firestore: AngularFirestore) { }
 
   ngOnInit() {
-    this.figurine = this.service.getFigurine()
+    this.firestore.collection<Figurina>('/figurine').snapshotChanges().subscribe(data => {
+      this.figurine = data.map(a => {
+        return {
+          id: a.payload.doc.id,
+          ...a.payload.doc.data()
+        } as Figurina;
+      })
+    })
   }
 }

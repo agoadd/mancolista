@@ -1,19 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire'
 import { AppRoutingModule } from './app-routing.module';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 import { AppComponent } from './app.component';
 import { AlbumComponent } from './components/album/album.component';
-import { AngularFirestore } from '@angular/fire/firestore';
 
-const config = {
-   apiKey: "AIzaSyBWSShZBgrgA3UVdmNt9T_YkjjZvMHTc2A",
-   authDomain: "mancolista-db.firebaseapp.com",
-   databaseURL: "https://mancolista-db.firebaseio.com",
-   projectId: "mancolista-db",
-   storageBucket: "mancolista-db.appspot.com",
-   messagingSenderId: "846235428676",
-};
+import { environment } from '../environments/environment';
 
 @NgModule({
    declarations: [
@@ -23,9 +18,10 @@ const config = {
    imports: [
       BrowserModule,
       AppRoutingModule,
-      AngularFireModule.initializeApp(config),
+      AngularFireModule.initializeApp(environment.fireBaseConfig),
+      AngularFirestoreModule
    ],
-   providers: [AngularFirestore],
+   providers: [],
    bootstrap: [
       AppComponent
    ]

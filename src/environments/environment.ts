@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  fireBaseConfig: {
+    apiKey: "AIzaSyBWSShZBgrgA3UVdmNt9T_YkjjZvMHTc2A",
+    authDomain: "mancolista-db.firebaseapp.com",
+    databaseURL: "https://mancolista-db.firebaseio.com",
+    projectId: "mancolista-db",
+    storageBucket: "mancolista-db.appspot.com",
+    messagingSenderId: "846235428676"
+  }
 };
 
 /*

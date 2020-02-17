@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor="let figurina of figurine">
-    <span>{{figurina.id}}</span> {{figurina.descrizione}}
+    <span>{{figurina.codice  | async }}</span> {{figurina.descrizione  | async}}
   </li>
 </ul>

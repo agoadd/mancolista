@@ -1,5 +1,5 @@
-export interface Figurina {
-  id: string;
+export class Figurina {
+  codice: string;
   descrizione: string;
-  count: number;
+  quantita: number;
 }
