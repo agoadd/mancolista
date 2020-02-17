@@ -13,8 +13,8 @@ import { environment } from '../environments/environment';
 @NgModule({
    declarations: [
       AppComponent,
-      AlbumComponent
-   ],
+      AlbumComponent,
+      ],
    imports: [
       BrowserModule,
       AppRoutingModule,
