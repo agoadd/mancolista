@@ -2,9 +2,9 @@
   <span>Album</span>
   <ul class="">
     <li *ngFor="let figurina of figurine">
-      <span>{{figurina.id}}</span> {{figurina.descrizione}}
+      <span>{{figurina.codice}}</span> {{figurina.descrizione}}
       <span class="remove" (click)="remove(figurina)">-</span>
-      <input type="number" class="count" name="qty" value={{figurina.count}}>
+      <input type="number" class="count" name="qty" value={{figurina.quantita}}>
       <span class="add" (click)="add(figurina)">+</span>
     </li>
   </ul>
@@ -14,9 +14,9 @@
   <span>celo</span>
   <ul class="">
     <li *ngFor="let figurina of celo">
-      <span>{{figurina.id}}</span> {{figurina.descrizione}}
+      <span>{{figurina.codice}}</span> {{figurina.descrizione}}
       <span class="remove" (click)="remove(figurina)">-</span>
-      <input type="number" class="count hidden" name="qty" value={{figurina.count}}>
+      <input type="number" class="count hidden" name="qty" value={{figurina.quantita}}>
       <span class="add" (click)="add(figurina)">+</span>
     </li>
   </ul>
@@ -26,9 +26,9 @@
   <span>doppie</span>
   <ul class="">
     <li *ngFor="let figurina of doppie">
-      <span>{{figurina.id}}</span> {{figurina.descrizione}}
+      <span>{{figurina.codice}}</span> {{figurina.descrizione}}
       <span class="remove" (click)="remove(figurina)">-</span>
-      <input type="number" class="count" name="qty" value={{figurina.count}}>
+      <input type="number" class="count" name="qty" value={{figurina.quantita}}>
       <span class="add" (click)="add(figurina)">+</span>
     </li>
   </ul>
