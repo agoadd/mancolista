@@ -1,14 +1,13 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule, AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { AppComponent } from './app.component';
 import { AlbumComponent } from './components/album/album.component';
-
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -20,12 +19,9 @@ import { environment } from '../environments/environment';
       BrowserModule,
       AppRoutingModule,
       AngularFireModule.initializeApp(environment.fireBaseConfig),
-      AngularFirestoreModule,
-      AngularFireAuthModule
+      AngularFireDatabaseModule
    ],
-   providers: [],
-   bootstrap: [
-      AppComponent
-   ]
+   providers: [AngularFirestore],
+   bootstrap: [AppComponent]
 })
 export class AppModule { }
