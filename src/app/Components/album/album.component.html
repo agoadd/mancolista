@@ -1,35 +1,11 @@
-<div>
-  <span>Album</span>
+<div *ngFor="let item of albums">
+  <span>{{item.name}}</span>
   <ul class="">
-    <li *ngFor="let figurina of figurine">
-      <span>{{figurina.codice}}</span> {{figurina.descrizione}}
-      <span class="remove" (click)="remove(figurina)">-</span>
-      <input type="number" class="count" name="qty" value={{figurina.quantita}}>
-      <span class="add" (click)="add(figurina)">+</span>
-    </li>
-  </ul>
-</div>
-
-<div>
-  <span>celo</span>
-  <ul class="">
-    <li *ngFor="let figurina of celo">
-      <span>{{figurina.codice}}</span> {{figurina.descrizione}}
-      <span class="remove" (click)="remove(figurina)">-</span>
-      <input type="number" class="count hidden" name="qty" value={{figurina.quantita}}>
-      <span class="add" (click)="add(figurina)">+</span>
-    </li>
-  </ul>
-</div>
-
-<div>
-  <span>doppie</span>
-  <ul class="">
-    <li *ngFor="let figurina of doppie">
-      <span>{{figurina.codice}}</span> {{figurina.descrizione}}
-      <span class="remove" (click)="remove(figurina)">-</span>
-      <input type="number" class="count" name="qty" value={{figurina.quantita}}>
-      <span class="add" (click)="add(figurina)">+</span>
+    <li *ngFor="let sticker of item.stickers">
+      <span>{{sticker.code}}</span> {{sticker.description}}
+      <!-- <span class="remove" (click)="remove(sticker)">-</span> -->
+      <!-- <input type="number" class="count" name="qty" value={{sticker.quantity}}> -->
+      <!-- <span class="add" (click)="add(sticker)">+</span> -->
     </li>
   </ul>
 </div>
