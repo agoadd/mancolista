@@ -1,15 +1,11 @@
+import { AlbumInfo } from './albumInfo';
 import { Sticker } from './sticker';
 
-export class Album {
-  public id: string;
-  public name: string;
+export class Album extends AlbumInfo {
   public stickers: Array<Sticker>;
 
   public constructor() {
+    super()
     this.stickers = new Array<Sticker>();
   }
-  // public constructor(name, stickers: Array<Sticker>) {
-  //   this.name = name;
-  //   this.stickers = stickers;
-  // }
 }

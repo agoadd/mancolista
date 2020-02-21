@@ -8,7 +8,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { AppComponent } from './app.component';
 import { AlbumComponent } from './components/album/album.component';
-import { CollectionComponent } from './components/collection/collection.component';
+import { UserComponent } from './Components/user/user.component';
 
 import { environment } from '../environments/environment';
 
@@ -16,12 +16,12 @@ import { environment } from '../environments/environment';
    declarations: [
       AppComponent,
       AlbumComponent,
-      CollectionComponent
+      UserComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
-      AngularFireModule.initializeApp(environment.fireBaseConfig),
+      AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFireDatabaseModule
    ],
    providers: [AngularFirestore],

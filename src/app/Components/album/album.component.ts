@@ -10,9 +10,16 @@ import { Album } from './../../Modules/album';
 export class AlbumComponent implements OnInit {
   public albums: Array<Album>;
 
-  constructor(private albumService: AlbumService) {  }
+  constructor(private albumService: AlbumService) { }
 
   ngOnInit(): void {
-    this.albums = this.albumService.getAlbums();
+    this.albumService.getAlbums().subscribe(album => {
+      this.albums = album.map(element => {
+        return {
+          id: element.payload.doc.id,
+          ...element.payload.doc.data() as Album
+        }
+      });
+    });
   }
 }

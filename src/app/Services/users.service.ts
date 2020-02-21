@@ -1,41 +1,25 @@
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { Collection } from './../Modules/collection';
+import { User } from './../Modules/user';
+import { Observable } from 'rxjs';
+import { CollectionSticker } from './../Modules/collectionSticker';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CollectionService {
-  private collection: Collection
+export class UsersService {
+  private missing: Array<CollectionSticker>
+  private duplicates: Array<CollectionSticker>
 
-  constructor() {
-    this.collection = new Collection();
+  constructor(private firestore: AngularFirestore) { }
+
+  public getUser(userId) {
+    return this.firestore.doc<User>('users/'+userId).snapshotChanges();
   }
-
-  public getCollection(): Collection {
-    return this.collection;
-  }
-
   public add(): void { }
 
   public remove(): void { }
 
-  // public getMissing(album: Array<Sticker>): Array<Sticker> {
-  //   let missing = album.find(x => x.quantity == 0);
-  //   if (missing) this.missing.push(missing);
-  //   return this.missing;
-  // }
-
-  // public getOwned(album: Array<Sticker>): Array<Sticker> {
-  //   let owned = album.find(x => x.quantity > 0);
-  //   if (owned) this.owned.push(owned);
-  //   return this.owned;
-  // }
-
-  // public getDuplicates(album: Array<Sticker>): Array<Sticker> {
-  //   let duplicates = album.find(x => x.quantity > 1);
-  //   if (duplicates) this.duplicates.push(duplicates);
-  //   return this.duplicates;
-  // }
 
   // public add(sticker: Sticker): void {
   //   sticker.quantity++;
