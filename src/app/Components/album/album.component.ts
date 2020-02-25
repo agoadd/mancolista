@@ -21,5 +21,7 @@ export class AlbumComponent implements OnInit {
         }
       });
     });
+    // this.albumService.setAlbums()
+    // this.albumService.setUsers()
   }
 }
