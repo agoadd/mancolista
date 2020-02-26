@@ -1,4 +1,5 @@
-import { UsersService } from './users.service';
+import { User } from './../Modules/user';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -9,18 +10,30 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  err: string;
-  user: Observable<firebase.User>;
-  constructor(private firebaseAuth: AngularFireAuth, private router: Router, private usersService: UsersService) {
+  public err: string;
+  public user: Observable<firebase.User>;
+  private userData: firebase.User
+
+  constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) {
     this.user = firebaseAuth.authState;
+    firebaseAuth.authState.subscribe((user) => {
+      if (user) {
+        this.userData = user;
+      } else {
+        this.userData = null;
+      }
+    });
   }
 
-  signUp(username: string, email: string, password: string) {
+  public signUp(username: string, email: string, password: string): void {
     this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         //this.sendVerificationMail();
-        this.usersService.add("pippo", result.user.uid);
-        this.router.navigate(['user', result.user.uid]);
+        this.firestore.doc('users/' + this.userData.uid).set({
+          collections: [],
+          username: username
+        });
+        this.router.navigate(['user']);
       })
       .catch((error) => {
         this.err = error;
@@ -28,7 +41,7 @@ export class AuthenticationService {
       });
   }
 
-  signIn(email: string, password: string) {
+  public signIn(email: string, password: string): void {
     this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value) => {
         localStorage.setItem('user', JSON.stringify(value.user));
@@ -41,7 +54,7 @@ export class AuthenticationService {
       });
   }
 
-  signOut() {
+  public signOut() {
     return this.firebaseAuth.auth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['home']);
@@ -54,11 +67,8 @@ export class AuthenticationService {
     return (user !== null) ? true : false;
   }
 
-  private sendVerificationMail() {
-    return this.firebaseAuth.auth.currentUser.sendEmailVerification()
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
+  public getUser() {
+    return this.firestore.doc<User>('users/' + this.userData.uid).snapshotChanges();
   }
 
   public forgotPassword(passwordResetEmail) {
@@ -68,6 +78,13 @@ export class AuthenticationService {
       })
       .catch((error) => {
         window.alert(error)
+      });
+  }
+
+  private sendVerificationMail() {
+    return this.firebaseAuth.auth.currentUser.sendEmailVerification()
+      .then(() => {
+        this.router.navigate(['verify-email-address']);
       });
   }
 }

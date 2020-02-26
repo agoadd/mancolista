@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'home', component: SigninComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'reset-password', component: ForgotPasswordComponent },
-  { path: 'user/:id', component: UserComponent, canActivate: [AuthorizationGuard] },
+  { path: 'user', component: UserComponent, canActivate: [AuthorizationGuard] },
   { path: 'album', component: AlbumComponent, canActivate: [AuthorizationGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];

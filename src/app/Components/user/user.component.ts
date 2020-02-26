@@ -1,8 +1,7 @@
+import { AuthenticationService } from './../../Services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from './../../Modules/user';
-import { UsersService } from './../../Services/users.service';
 import * as $ from 'jquery';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -12,13 +11,11 @@ import { ActivatedRoute } from '@angular/router';
 export class UserComponent implements OnInit {
   public user: User;
 
-  constructor(private userService: UsersService, private route: ActivatedRoute) { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.userService.getUser(this.route.snapshot.paramMap.get('id')).subscribe(user => {
+    this.authService.getUser().subscribe(user => {
       this.user = user.payload.data();
     });
   }
-
 }

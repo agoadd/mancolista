@@ -9,7 +9,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class CollectionsService {
-
   constructor(private firestore: AngularFirestore) { }
 
   getCompletamento(collection: Collection) {
@@ -38,6 +37,7 @@ export class CollectionsService {
     // this.firestore.doc('/users/' + userID).set(Object.assign({}, user))
     sticker.quantity = -1;
   }
+
   decrementa(sticker: CollectionSticker, collectionId: String) {
     // let user: User = JSON.parse(localStorage.getItem('user'));
     // let userID = localStorage.getItem('userId');
@@ -53,6 +53,7 @@ export class CollectionsService {
     // this.firestore.doc('/users/' + userID).set(Object.assign({}, user))
     sticker.quantity--;
   }
+
   incrementa(sticker: CollectionSticker, collectionId: String) {
     // let user: User = JSON.parse(localStorage.getItem('user'));
     // let userID = localStorage.getItem('userId');

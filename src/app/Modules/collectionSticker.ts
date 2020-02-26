@@ -18,7 +18,6 @@ export class CollectionSticker extends Sticker {
     public IsCelo() {
         return this.quantity == 0
     }
-
 }
 
 
