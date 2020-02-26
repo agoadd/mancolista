@@ -2,6 +2,7 @@ import { AuthenticationService } from './../../Services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from './../../Modules/user';
 import * as $ from 'jquery';
+import { Observable, from, observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +17,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUser().subscribe(user => {
       this.user = user.payload.data();
+      localStorage.setItem('user', JSON.stringify(this.user));
     });
   }
 }

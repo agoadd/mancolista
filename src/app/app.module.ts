@@ -16,6 +16,7 @@ import { SigninComponent } from './Components/signin/signin.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { AlbumComponent } from './Components/album/album.component';
 import { UserComponent } from './Components/user/user.component';
+import { CollectionComponent } from './Components/collection/collection.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { PageNotFoundComponent } from './Components/page-not-found/page-not-foun
       ForgotPasswordComponent,
       AlbumComponent,
       UserComponent,
+      CollectionComponent,
       PageNotFoundComponent
    ],
    imports: [
