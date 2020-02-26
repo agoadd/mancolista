@@ -1,0 +1,19 @@
+<div>Raccolte</div>
+<div *ngFor="let collection of collections">
+  <span>{{collection.album.name}}</span>
+  <ul>
+    <li *ngFor="let sticker of collection.stickers">
+      <span>{{sticker.code}}</span><span>{{sticker.description}} </span><span> {{sticker.quantity}}</span>
+      <button *ngIf="checkMancante(sticker)" (click)="incrementa(sticker,collection.album.id)"> + </button>
+      <div *ngIf="checkDoppione(sticker)">
+        <button (click)="incrementa(sticker,collection.album.id)"> + </button>
+        <button (click)="decrementa(sticker,collection.album.id)"> - </button>
+      </div>
+      <div *ngIf="checkCelo(sticker)">
+        <button (click)="incrementa(sticker,collection.album.id)"> + </button>
+        <button (click)="resetta(sticker,collection.album.id)"> M </button>
+      </div>
+    </li>
+  </ul>
+  <div>{{getCompletamento(collection)}}</div>
+</div>

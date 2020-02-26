@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './../../Modules/user';
 import { UsersService } from './../../Services/users.service';
 import * as $ from 'jquery';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -11,16 +12,13 @@ import * as $ from 'jquery';
 export class UserComponent implements OnInit {
   public user: User;
 
-  constructor(private service: UsersService) { }
+  constructor(private userService: UsersService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.service.getUser("vkCz3DS61th7OzQ17UVj").subscribe(user => { 
-      this.user = user.payload.data(); 
-    });
-    
-    $('.nav .nav-tabs a').on('click', function (e) {
-      e.preventDefault();
-      $(this).tab('show');
+    const id = this.route.snapshot.paramMap.get('id');
+    this.userService.getUser(this.route.snapshot.paramMap.get('id')).subscribe(user => {
+      this.user = user.payload.data();
     });
   }
+
 }

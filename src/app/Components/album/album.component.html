@@ -1,8 +1,10 @@
-<div *ngFor="let item of albums">
-  <span>{{item.name}}</span>
+<div>Album</div>
+<div *ngFor="let album of albums">
+  <span>{{album.name}}</span>
   <ul class="">
-    <li *ngFor="let sticker of item.stickers">
+    <li *ngFor="let sticker of album.stickers">
       <span>{{sticker.code}}</span> {{sticker.description}}
     </li>
   </ul>
+  <button (click)=addCollectionToUser(album) type="button">Aggiungi {{album.name}} ai tuoi album</button>
 </div>

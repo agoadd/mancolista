@@ -14,31 +14,15 @@ export class UsersService {
   constructor(private firestore: AngularFirestore) { }
 
   public getUser(userId) {
-    return this.firestore.doc<User>('users/'+userId).snapshotChanges();
+    return this.firestore.doc<User>('users/' + userId).snapshotChanges();
   }
-  public add(): void { 
-    
+  
+  public add(username, userId): void {
+    this.firestore.doc('users/' + userId).set({
+      collections: [],
+      username: username
+    });
   }
 
   public remove(): void { }
-
-
-  // public add(sticker: Sticker): void {
-  //   sticker.quantity++;
-  //   if ((sticker.quantity > 1) && (this.duplicates.find(x => x.code == sticker.code) == null)) this.duplicates.push(sticker);
-  //   else if (sticker.quantity == 1) this.owned.push(sticker);
-  // }
-
-  // public remove(sticker: Sticker): void {
-  //   if (sticker.quantity == 0) return;
-  //   sticker.quantity--;
-  //   if ((sticker.quantity > 1) && (this.duplicates.find(x => x.code == sticker.code) == null)) this.duplicates.push(sticker);
-  //   else if (sticker.quantity == 1) {
-  //     let index = this.duplicates.indexOf(sticker, 0)
-  //     this.duplicates.splice(index, 1);
-  //   } else if (sticker.quantity == 0) {
-  //     let index = this.owned.indexOf(sticker, 0)
-  //     this.owned.splice(index, 1);
-  //   }
-  // }
 }

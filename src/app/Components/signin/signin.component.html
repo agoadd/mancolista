@@ -6,21 +6,29 @@
         <input matInput type="text" [(ngModel)]="email" placeholder="Email...." required>
         <mat-hint>Inserisci la mail</mat-hint>
       </mat-form-field>
+      <mat-form-field *ngIf="showSignUp" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" [(ngModel)]="email" placeholder="Username...." required>
+        <mat-hint>Inserisci l'username</mat-hint>
+      </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput type="password" [(ngModel)]="password" placeholder="Password...." required>
         <mat-hint>Inserisci la password</mat-hint>
       </mat-form-field>
-      <mat-card-actions *ngIf="showLogin">
-        <button mat-raised-button (click)="login()" [disabled]="!email || !password"> Login </button>
+      <mat-card-actions *ngIf="showSignIn">
+        <button mat-raised-button (click)="signIn()" [disabled]="!email || !password"> Login </button>
       </mat-card-actions>
-      <mat-card-footer *ngIf="showLogin">
+      <mat-card-footer *ngIf="showSignIn">
         Oppure <a mat-basic-chip (click)="toggle()">registrati</a>
       </mat-card-footer>
-      <mat-card-actions *ngIf="showSignin">
-        <button mat-raised-button (click)="signup()" [disabled]="!email || !password"> Registrati </button>
+      <mat-card-footer *ngIf="showSignIn">
+        Ho dimenticato la <a mat-basic-chip routerLink="/reset-password">password</a>
+      </mat-card-footer>
+      <mat-card-actions *ngIf="showSignUp">
+        <button mat-raised-button (click)="signUp()" [disabled]="!email || !password"> Registrati </button>
       </mat-card-actions>
-      <mat-card-footer *ngIf="showSignin">
+      <mat-card-footer *ngIf="showSignUp">
         Oppure effettua il <a mat-basic-chip (click)="toggle()">login</a>
       </mat-card-footer>
     </div>

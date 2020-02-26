@@ -8,4 +8,5 @@ export class Album extends AlbumInfo {
     super()
     this.stickers = new Array<Sticker>();
   }
+
 }

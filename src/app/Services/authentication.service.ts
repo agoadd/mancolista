@@ -9,49 +9,65 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private usersService: UsersService;
-  user: Observable<firebase.User>;
   err: string;
-
-  constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
+  user: Observable<firebase.User>;
+  constructor(private firebaseAuth: AngularFireAuth, private router: Router, private usersService: UsersService) {
     this.user = firebaseAuth.authState;
   }
 
-  signup(email: string, password: string) {
+  signUp(username: string, email: string, password: string) {
     this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Success! User is successfully registered.', value.user.email);
-        //this.router.navigate(['user']);
+      .then((result) => {
+        //this.sendVerificationMail();
+        this.usersService.add("pippo", result.user.uid);
+        this.router.navigate(['user', result.user.uid]);
       })
-      .catch(error => {
-        this.err = error.message;
-        console.log('Something went wrong:', error);
+      .catch((error) => {
+        this.err = error;
+        console.log(error);
       });
   }
 
-  login(email: string, password: string) {
+  signIn(email: string, password: string) {
     this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('User successfully logged in!');
+      .then((value) => {
         localStorage.setItem('user', JSON.stringify(value.user));
-        this.router.navigate(['user']);
+        localStorage.setItem('userId', value.user.uid);
+        this.router.navigate(['user', value.user.uid]);
       })
-      .catch(error => {
-        this.err = error.message;
-        console.log('Something went wrong:', error);
+      .catch((error) => {
+        this.err = error;
+        console.log(error);
       });
   }
 
-  logout() {
-    localStorage.removeItem('user');
-    this.router.navigate(['home']);
-    this.firebaseAuth.auth.signOut();
-    this.user = null;
+  signOut() {
+    return this.firebaseAuth.auth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['home']);
+    });
   }
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     //return (user !== null && user.emailVerified !== false) ? true : false;
     return (user !== null) ? true : false;
+  }
+
+  private sendVerificationMail() {
+    return this.firebaseAuth.auth.currentUser.sendEmailVerification()
+      .then(() => {
+        this.router.navigate(['verify-email-address']);
+      });
+  }
+
+  public forgotPassword(passwordResetEmail) {
+    return this.firebaseAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        window.alert('Password reset email sent, check your inbox.');
+      })
+      .catch((error) => {
+        window.alert(error)
+      });
   }
 }

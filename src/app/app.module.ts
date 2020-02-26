@@ -12,7 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './Components/login/login.component';
+import { SigninComponent } from './Components/signin/signin.component';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { AlbumComponent } from './Components/album/album.component';
 import { UserComponent } from './Components/user/user.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
@@ -20,7 +21,8 @@ import { PageNotFoundComponent } from './Components/page-not-found/page-not-foun
 @NgModule({
    declarations: [
       AppComponent,
-      LoginComponent,
+      SigninComponent,
+      ForgotPasswordComponent,
       AlbumComponent,
       UserComponent,
       PageNotFoundComponent

@@ -1,0 +1,19 @@
+import { CollectionSticker } from './../Modules/collectionSticker';
+import { Collection } from './../Modules/collection';
+import { User } from './../Modules/user';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Album } from './../Modules/album';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AlbumsService {
+
+  constructor(private firestore: AngularFirestore) { }
+
+  public getAlbums() {
+    return this.firestore.collection<Album>('albums').snapshotChanges();
+  }
+
+}
