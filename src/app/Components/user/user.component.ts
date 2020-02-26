@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './../../Modules/user';
 import { UsersService } from './../../Services/users.service';
 import * as $ from 'jquery';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',

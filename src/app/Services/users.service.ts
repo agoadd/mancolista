@@ -16,7 +16,9 @@ export class UsersService {
   public getUser(userId) {
     return this.firestore.doc<User>('users/'+userId).snapshotChanges();
   }
-  public add(): void { }
+  public add(): void { 
+    
+  }
 
   public remove(): void { }
 
