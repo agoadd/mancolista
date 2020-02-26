@@ -16,20 +16,14 @@ export class AuthenticationService {
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) {
     this.user = firebaseAuth.authState;
-    firebaseAuth.authState.subscribe((user) => {
-      if (user) {
-        this.userData = user;
-      } else {
-        this.userData = null;
-      }
-    });
   }
 
   public signUp(username: string, email: string, password: string): void {
     this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         //this.sendVerificationMail();
-        this.firestore.doc('users/' + this.userData.uid).set({
+        this.userData = result.user;
+        this.firestore.doc('users' + result.user.uid).set({
           collections: [],
           username: username
         });
@@ -44,9 +38,10 @@ export class AuthenticationService {
   public signIn(email: string, password: string): void {
     this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value) => {
+        this.userData = value.user;
         localStorage.setItem('user', JSON.stringify(value.user));
         localStorage.setItem('userId', value.user.uid);
-        this.router.navigate(['user', value.user.uid]);
+        this.router.navigate(['user']);
       })
       .catch((error) => {
         this.err = error;
@@ -62,9 +57,8 @@ export class AuthenticationService {
   }
 
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
     //return (user !== null && user.emailVerified !== false) ? true : false;
-    return (user !== null) ? true : false;
+    return (this.userData !== null) ? true : false;
   }
 
   public getUser() {
