@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './../../Modules/user';
 import { UsersService } from './../../Services/users.service';
-import * as $ from 'jquery';
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -11,20 +9,14 @@ import * as $ from 'jquery';
 export class UserComponent implements OnInit {
   public user: User;
 
-  constructor(private service: UsersService) { }
+  constructor(private userService: UsersService) { }
 
   ngOnInit(): void {
-    this.service.getUser("LeJVmnKxhsv69PmS2upU").subscribe(user => {
+    this.userService.getUser("pDjgmw75pLIIz5zYxywq").subscribe(user => {
       this.user = user.payload.data();
-      this.user.collections.forEach(collection => {
-        collection.duplicateStickers = collection.ownedStickers.filter(x => x.quantity > 1);
-        collection.missingStickers = collection.ownedStickers.filter(x => x.quantity == 0);
-      });
-    });
-
-    $('.nav .nav-tabs a').on('click', function (e) {
-      e.preventDefault();
-      $(this).tab('show');
+      localStorage.setItem("user", JSON.stringify(this.user));
+      localStorage.setItem("userId", user.payload.id);
     });
   }
+
 }

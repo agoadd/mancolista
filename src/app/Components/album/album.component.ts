@@ -1,5 +1,6 @@
+import { CollectionsService } from './../../Services/collections.service';
 import { Component, OnInit } from '@angular/core';
-import { AlbumService } from './../../Services/album.service';
+import { AlbumsService } from './../../Services/albums.service';
 import { Album } from './../../Modules/album';
 
 @Component({
@@ -10,10 +11,10 @@ import { Album } from './../../Modules/album';
 export class AlbumComponent implements OnInit {
   public albums: Array<Album>;
 
-  constructor(private albumService: AlbumService) { }
+  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService) { }
 
   ngOnInit(): void {
-    this.albumService.getAlbums().subscribe(album => {
+    this.albumsService.getAlbums().subscribe(album => {
       this.albums = album.map(element => {
         return {
           id: element.payload.doc.id,
@@ -22,4 +23,9 @@ export class AlbumComponent implements OnInit {
       });
     });
   }
+
+  public addCollectionToUser(album: Album) {
+    this.collectionsService.addCollectionToUser(album)
+  }
+
 }
