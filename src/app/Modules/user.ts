@@ -7,6 +7,6 @@ export class User {
 
     constructor() {
         this.username = '';
-        this.collections = new Array<Collection>()
+        this.collections = new Array<Collection>();
     }
 }

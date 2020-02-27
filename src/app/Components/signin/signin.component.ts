@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticationService } from './../../Services/authentication.service';
-import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-signin',
@@ -9,11 +7,11 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  showSignIn: boolean;
-  showSignUp: boolean;
-  username: string;
-  email: string;
-  password: string;
+  public showSignIn: boolean;
+  public showSignUp: boolean;
+  public username: string;
+  public email: string;
+  public password: string;
 
   constructor(public authService: AuthenticationService) {
     this.showSignIn = true;

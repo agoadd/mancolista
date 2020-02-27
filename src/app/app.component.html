@@ -1,17 +1,27 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span>{{title}}</span>
+        <span style="flex: 1 1 auto;">{{title}}</span>
         <div *ngIf="authService.user | async">
-            <span>Welcome <i>{{ (authService.user | async)?.email }}</i>!</span>
-        </div>
+            <span>Welcome {{ (authService.user | async)?.displayName }}!</span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon>menu</mat-icon>
         </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-                <button mat-button *ngIf="authService.user | async" (click)="logout()"> Logout </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
+            </button>
+            <button mat-menu-item routerLink="/album">
+                <mat-icon>list</mat-icon>
+                <span>Album</span>
+            </button>
+            <button mat-menu-item routerLink="/user">
+                <mat-icon>person</mat-icon>
+                <span>Profilo</span>
             </button>
         </mat-menu>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>
+
 <router-outlet></router-outlet>

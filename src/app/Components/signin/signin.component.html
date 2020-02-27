@@ -1,5 +1,5 @@
-<mat-card>
-  <mat-card-content *ngIf="!(authService.user | async)">
+<mat-card *ngIf="!(authService.user | async)">
+  <mat-card-content>
     <div>
       <mat-form-field appearance="outline">
         <mat-label>E-Mail</mat-label>
@@ -20,16 +20,16 @@
         <button mat-raised-button (click)="signIn()" [disabled]="!email || !password"> Login </button>
       </mat-card-actions>
       <mat-card-footer *ngIf="showSignIn">
-        Oppure <a mat-basic-chip (click)="toggle()">registrati</a>
+        Non hai un account? <a mat-basic-chip (click)="toggle()">Registrati</a>
       </mat-card-footer>
       <mat-card-footer *ngIf="showSignIn">
-        Ho dimenticato la <a mat-basic-chip routerLink="/reset-password">password</a>
+        Hai dimenticato la password? Clicca <a mat-basic-chip routerLink="/reset-password">qui</a>
       </mat-card-footer>
       <mat-card-actions *ngIf="showSignUp">
         <button mat-raised-button (click)="signUp()" [disabled]="!email || !password"> Registrati </button>
       </mat-card-actions>
       <mat-card-footer *ngIf="showSignUp">
-        Oppure effettua il <a mat-basic-chip (click)="toggle()">login</a>
+        Hai già un account? Effettua il <a mat-basic-chip (click)="toggle()">login</a>
       </mat-card-footer>
     </div>
   </mat-card-content>

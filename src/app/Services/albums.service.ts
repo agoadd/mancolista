@@ -9,6 +9,6 @@ export class AlbumsService {
   constructor(private firestore: AngularFirestore) { }
 
   public getAlbums() {
-    return this.firestore.collection<Album>('albums').snapshotChanges();
+    return this.firestore.collection<Album>('albums').valueChanges();
   }
 }

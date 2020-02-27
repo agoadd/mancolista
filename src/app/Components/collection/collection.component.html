@@ -4,14 +4,14 @@
   <ul>
     <li *ngFor="let sticker of collection.stickers">
       <span>{{sticker.code}}</span><span>{{sticker.description}} </span><span> {{sticker.quantity}}</span>
-      <button *ngIf="checkMancante(sticker)" (click)="incrementa(sticker,collection.album.id)"> + </button>
+      <button *ngIf="checkMancante(sticker)" (click)="add(sticker)"> + </button>
       <div *ngIf="checkDoppione(sticker)">
-        <button (click)="incrementa(sticker,collection.album.id)"> + </button>
-        <button (click)="decrementa(sticker,collection.album.id)"> - </button>
+        <button (click)="add(sticker)"> + </button>
+        <button (click)="remove(sticker)"> - </button>
       </div>
       <div *ngIf="checkCelo(sticker)">
-        <button (click)="incrementa(sticker,collection.album.id)"> + </button>
-        <button (click)="resetta(sticker,collection.album.id)"> M </button>
+        <button (click)="add(sticker)"> + </button>
+        <button (click)="reset(sticker,collection.album.id)"> M </button>
       </div>
     </li>
   </ul>

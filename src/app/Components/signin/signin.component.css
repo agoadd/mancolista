@@ -22,6 +22,10 @@ mat-card-footer a {
     cursor: pointer;
 }
 
+mat-form-field{
+    margin-top:20px;
+}
+
 .button {
     display: flex;
     justify-content: flex-end;

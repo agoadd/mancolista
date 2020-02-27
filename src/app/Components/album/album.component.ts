@@ -14,18 +14,17 @@ export class AlbumComponent implements OnInit {
   constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService) { }
 
   ngOnInit(): void {
-    this.albumsService.getAlbums().subscribe(album => {
-      this.albums = album.map(element => {
+    this.albumsService.getAlbums().subscribe((album) => {
+      this.albums = album.map((element) => {
         return {
-          id: element.payload.doc.id,
-          ...element.payload.doc.data() as Album
-        }
+          id: element.id,
+          ...element
+        } as Album
       });
     });
   }
 
   public addCollectionToUser(album: Album) {
-    this.collectionsService.addCollectionToUser(album)
+    this.collectionsService.addCollectionToUser(album);
   }
-
 }
