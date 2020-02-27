@@ -7,6 +7,7 @@ export class CollectionSticker extends Sticker {
         super();
         this.quantity = -1;
     }
+
 }
 
 

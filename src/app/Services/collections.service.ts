@@ -5,6 +5,7 @@ import { User } from '../Modules/user';
 import { Album } from '../Modules/album';
 import { Collection } from '../Modules/collection';
 import { CollectionSticker } from '../Modules/collectionSticker';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -37,13 +38,11 @@ export class CollectionsService {
   /**************************/
 
   public addCollectionToUser(album: Album) {
-    let user = this.authService.userData;
-    let userCollection = user.collections.find((collection) => collection.album.id == album.id);
-    if (!userCollection) {
-      let collection = new Collection();
-      collection.setCollection(album, album.stickers);
-      user.collections.push(collection);;
-      this.firestore.doc('users/' + user.id).set({user});
-    }
+    let collection = new Collection();
+    collection = collection.toFirebase(album, album.stickers);
+    this.firestore.collection('users').doc(this.authService.userData.id)
+      .update({
+        collections: firebase.firestore.FieldValue.arrayUnion({ ...collection })
+      });
   }
 }

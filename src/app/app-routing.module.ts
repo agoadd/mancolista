@@ -8,7 +8,7 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { AuthorizationGuard } from './Guards/authorization.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'signin', pathMatch: 'full', },
+  { path: '', redirectTo: 'signin', pathMatch: 'full' },
   { path: 'home', component: SigninComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'reset-password', component: ForgotPasswordComponent },

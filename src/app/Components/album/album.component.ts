@@ -17,10 +17,11 @@ export class AlbumComponent implements OnInit {
     this.albumsService.getAlbums().subscribe((album) => {
       this.albums = album.map((element) => {
         return {
-          id: element.id,
-          ...element
+          id: element.payload.doc.id,
+          ...element.payload.doc.data()
         } as Album
       });
+
     });
   }
 

@@ -2,8 +2,9 @@ import { Sticker } from './sticker';
 import { CollectionSticker } from './collectionSticker';
 import { AlbumInfo } from './albumInfo';
 import { Album } from './album';
+import { Firebaseable } from './firebaseable';
 
-export class Collection {
+export class Collection implements Firebaseable {
     public album: AlbumInfo;
     public stickers: Array<CollectionSticker>;
 
@@ -12,11 +13,14 @@ export class Collection {
         this.stickers = new Array<CollectionSticker>();
     }
 
-    public setCollection(album: Album, stickers: Array<Sticker>): void {
-        this.album = new AlbumInfo();
-        this.album.setAlbumInfo("album.id", album.name, album.year);
+    public toFirebase(album: Album, stickers: Array<Sticker>) {
+        this.album = this.album.toFirebase(album.id, album.name, album.year);
         this.stickers = stickers.map((sticker) => {
-              return sticker as CollectionSticker;            
+            return {
+                quantity: -1,
+                ...sticker
+            } as CollectionSticker
         });
+        return { ...this }
     }
 }
