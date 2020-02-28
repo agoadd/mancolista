@@ -4,16 +4,11 @@
   <ul>
     <li *ngFor="let sticker of collection.stickers">
       <span>{{sticker.code}}</span><span>{{sticker.description}} </span><span> {{sticker.quantity}}</span>
-      <button *ngIf="checkMancante(sticker)" (click)="add(sticker)"> + </button>
-      <div *ngIf="checkDoppione(sticker)">
-        <button (click)="add(sticker)"> + </button>
-        <button (click)="remove(sticker)"> - </button>
-      </div>
-      <div *ngIf="checkCelo(sticker)">
-        <button (click)="add(sticker)"> + </button>
-        <button (click)="reset(sticker)"> M </button>
-      </div>
+      <button (click)="increment(sticker,collection)"> + </button>
+      <button (click)="reset(sticker,collection)"> M </button>
+      <button (click)="decrement(sticker,collection)"> - </button>
     </li>
   </ul>
   <div>{{getCompletamento(collection)}}</div>
+  <button (click)="removeCollection(collection)"> Elimina </button>
 </div>
