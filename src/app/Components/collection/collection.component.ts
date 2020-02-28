@@ -16,13 +16,10 @@ export class CollectionComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.collectionsService.getCollections().subscribe((user) => {
-      this.collections = user.collections.map((element) => {
-        return {
-          ...element
-        } as Collection
+    this.collectionsService.getCollections()
+      .subscribe((collections) => {
+        this.collections = collections.map(collection => { return { ...collection } as Collection });
       });
-    });
   }
 
   public increment(sticker: CollectionSticker, collection: Collection) {

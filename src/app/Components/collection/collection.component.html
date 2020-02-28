@@ -1,9 +1,9 @@
 <div>Raccolte</div>
 <div *ngFor="let collection of collections">
-  <span>{{collection.album.name}}</span>
+  <span>{{collection?.album?.name}}</span>
   <ul>
     <li *ngFor="let sticker of collection.stickers">
-      <span>{{sticker.code}}</span><span>{{sticker.description}} </span><span> {{sticker.quantity}}</span>
+      <span>{{sticker?.code}}</span><span>{{sticker?.description}} </span><span> {{sticker?.quantity}}</span>
       <button (click)="increment(sticker,collection)"> + </button>
       <button (click)="reset(sticker,collection)"> M </button>
       <button (click)="decrement(sticker,collection)"> - </button>

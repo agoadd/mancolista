@@ -1,4 +1,4 @@
-import { Collection } from './../Modules/collection';
+import { Collection } from 'src/app/Modules/collection';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthenticationService } from './authentication.service';
@@ -20,7 +20,7 @@ export class CollectionsService {
   }
 
   public getCollections() {
-    return this.firestore.doc<User>('users/' + this.authService.userData.id).valueChanges();
+    return this.firestore.collection<Collection>('users/' + this.authService.userData.id + '/collections').valueChanges();
   }
 
   public reset(sticker: CollectionSticker, collection: Collection) {
