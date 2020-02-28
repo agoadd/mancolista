@@ -1,0 +1,12 @@
+mat-card:not([class*="mat-elevation-z"]) {
+    box-shadow: none;
+}
+
+mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+mat-icon {
+    cursor: pointer;
+}

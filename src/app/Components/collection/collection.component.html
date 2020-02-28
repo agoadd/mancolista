@@ -1,19 +1,26 @@
-<div>Raccolte</div>
-<div *ngFor="let collection of collections">
-  <span>{{collection.album.name}}</span>
-  <ul>
-    <li *ngFor="let sticker of collection.stickers">
-      <span>{{sticker.code}}</span><span>{{sticker.description}} </span><span> {{sticker.quantity}}</span>
-      <button *ngIf="checkMancante(sticker)" (click)="add(sticker)"> + </button>
-      <div *ngIf="checkDoppione(sticker)">
-        <button (click)="add(sticker)"> + </button>
-        <button (click)="remove(sticker)"> - </button>
-      </div>
-      <div *ngIf="checkCelo(sticker)">
-        <button (click)="add(sticker)"> + </button>
-        <button (click)="reset(sticker)"> M </button>
-      </div>
-    </li>
-  </ul>
-  <div>{{getCompletamento(collection)}}</div>
-</div>
+<mat-card>
+  <mat-card-title>Le mie raccolte</mat-card-title>
+  <mat-card-content>
+    <mat-accordion class="w-50 p-3">
+      <mat-expansion-panel *ngFor="let collection of collections">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="w-75 p-3">{{collection.album.name}}</mat-panel-title>
+          <mat-panel-description class="w-25 p-3">
+            <mat-progress-bar mode="determinate" value="{{getCompletamento(collection)*100}}"></mat-progress-bar>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item *ngFor="let sticker of collection.stickers">
+            <span class="w-5 p-3">{{sticker.code}}</span>
+            <span class="w-20 p-3">{{sticker.description}} </span>
+            <!-- <span class="w-25 p-3"> {{sticker.quantity}}</span> -->
+            <mat-icon class="w-5" *ngIf="checkMancante(sticker) || checkDoppione(sticker) || checkCelo(sticker)" (click)="add(sticker)"> add </mat-icon>
+            <mat-icon class="w-5" *ngIf="checkDoppione(sticker)" (click)="remove(sticker)">remove</mat-icon>
+            <mat-icon class="w-5" *ngIf="checkCelo(sticker)" (click)="reset(sticker)">unarchive</mat-icon>
+            <mat-divider *ngIf="collection.stickers.length > 1"></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>
