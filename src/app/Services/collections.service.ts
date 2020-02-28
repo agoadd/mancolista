@@ -1,10 +1,10 @@
-import { Collection } from './../Modules/collection';
+import { Sticker } from './../Modules/sticker';
+import { CollectionSticker } from './../Modules/collectionSticker';
+import { Collection } from 'src/app/Modules/collection';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthenticationService } from './authentication.service';
-import { User } from '../Modules/user';
 import { Album } from '../Modules/album';
-import { CollectionSticker } from '../Modules/collectionSticker';
 import * as firebase from 'firebase/app';
 
 @Injectable({
@@ -20,40 +20,25 @@ export class CollectionsService {
   }
 
   public getCollections() {
-    return this.firestore.doc<User>('users/' + this.authService.userData.id).valueChanges();
+    return this.firestore.collection<Collection>('users/' + this.authService.userData.id + '/collections').valueChanges();
   }
 
   public reset(sticker: CollectionSticker, collection: Collection) {
-    let newCollection = collection
-    this.removeCollection(collection)
-    newCollection.stickers.forEach(s => {
-      if (s.code == sticker.code) {
-        s.quantity = -1;
-      }
-    })
-    this.addCollection(newCollection)
+    var newSticker = { ...sticker } as CollectionSticker
+    newSticker.quantity = -1
+    this.updateSticker(sticker, newSticker, collection.album.id)
   }
 
   public increment(sticker: CollectionSticker, collection: Collection) {
-    let newCollection = collection
-    this.removeCollection(collection)
-    newCollection.stickers.forEach(s => {
-      if (s.code == sticker.code) {
-        s.quantity++;
-      }
-    })
-    this.addCollection(newCollection)
+    var newSticker = { ...sticker } as CollectionSticker
+    newSticker.quantity++
+    this.updateSticker(sticker, newSticker, collection.album.id)
   }
 
   public decrement(sticker: CollectionSticker, collection: Collection) {
-    let newCollection = collection
-    this.removeCollection(collection)
-    newCollection.stickers.forEach(s => {
-      if (s.code == sticker.code) {
-        s.quantity--;
-      }
-    })
-    this.addCollection(newCollection)
+    var newSticker = { ...sticker } as CollectionSticker
+    newSticker.quantity--
+    this.updateSticker(sticker, newSticker, collection.album.id)
   }
 
   public addCollectionToUser(album: Album) {
@@ -62,33 +47,34 @@ export class CollectionsService {
     this.addCollection(collection)
   }
 
-  public removeCollectionToUSer(collection: Collection) {
+  public removeCollectionFromUser(collection: Collection) {
     this.removeCollection(collection)
   }
 
   private removeCollection(collection: Collection) {
-    this.firestore.collection('users').doc(this.authService.userData.id).update({
-      collections: firebase.firestore.FieldValue.arrayRemove({ ...collection })
-    });
+    this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', collection.album.id).get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref.delete();
+        });
+      });
   }
 
   private addCollection(collection: Collection) {
-    this.firestore.collection('users').doc(this.authService.userData.id).update({
-      collections: firebase.firestore.FieldValue.arrayUnion({ ...collection })
-    });
+    this.firestore.collection('users/' + this.authService.userData.id + '/collections').add({ ...collection })
   }
 
-  /***** scrivere su db *****/
-  // public reset(sticker: CollectionSticker) {
-  //   sticker.quantity = -1;
-  // }
-
-  public remove(sticker: CollectionSticker) {
-    sticker.quantity--;
+  private updateSticker(sticker: CollectionSticker, newSticker: CollectionSticker, albumId: string) {
+    this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', albumId).get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.ref.update({
+            stickers: firebase.firestore.FieldValue.arrayRemove(sticker)
+          })
+          doc.ref.update({
+            stickers: firebase.firestore.FieldValue.arrayUnion(newSticker)
+          })
+        });
+      });
   }
-
-  public add(sticker: CollectionSticker) {
-    sticker.quantity++;
-  }
-  /**************************/
 }

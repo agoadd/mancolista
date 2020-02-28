@@ -12,17 +12,18 @@ export class CollectionComponent implements OnInit {
   public collections: Array<Collection>;
 
   constructor(private collectionsService: CollectionsService) {
-    this.collections = new Array<Collection>();
   }
 
   public ngOnInit(): void {
-    this.collectionsService.getCollections().subscribe((user) => {
-      this.collections = user.collections.map((element) => {
-        return {
-          ...element
-        } as Collection
+    this.collectionsService.getCollections()
+      .subscribe((collections) => {
+        this.collections = collections.map(collection => {
+          return {
+            ...collection
+          } as Collection
+        });
+
       });
-    });
   }
 
   public increment(sticker: CollectionSticker, collection: Collection) {
@@ -42,7 +43,7 @@ export class CollectionComponent implements OnInit {
   }
 
   public removeCollection(collection: Collection) {
-    return this.collectionsService.removeCollectionToUSer(collection);
+    return this.collectionsService.removeCollectionFromUser(collection);
   }
 
   public checkMancante(sticker: CollectionSticker): boolean {
