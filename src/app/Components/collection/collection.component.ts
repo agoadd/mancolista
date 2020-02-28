@@ -25,6 +25,26 @@ export class CollectionComponent implements OnInit {
     });
   }
 
+  public increment(sticker: CollectionSticker, collection: Collection) {
+    this.collectionsService.increment(sticker, collection);
+  }
+
+  public decrement(sticker: CollectionSticker, collection: Collection) {
+    this.collectionsService.decrement(sticker, collection);
+  }
+
+  public reset(sticker: CollectionSticker, collection: Collection) {
+    this.collectionsService.reset(sticker, collection);
+  }
+
+  public getCompletamento(collection: Collection) {
+    return this.collectionsService.getProgress(collection);
+  }
+
+  public removeCollection(collection: Collection) {
+    return this.collectionsService.removeCollectionToUSer(collection);
+  }
+
   public checkMancante(sticker: CollectionSticker): boolean {
     return sticker.quantity == -1;
   }
@@ -35,21 +55,5 @@ export class CollectionComponent implements OnInit {
 
   public checkDoppione(sticker: CollectionSticker): boolean {
     return sticker.quantity > 0;
-  }
-
-  public add(sticker: CollectionSticker) {
-    this.collectionsService.add(sticker);
-  }
-
-  public remove(sticker: CollectionSticker) {
-    this.collectionsService.remove(sticker);
-  }
-
-  public reset(sticker: CollectionSticker) {
-    this.collectionsService.reset(sticker);
-  }
-
-  public getCompletamento(collection: Collection) {
-    return this.collectionsService.getProgress(collection);
   }
 }

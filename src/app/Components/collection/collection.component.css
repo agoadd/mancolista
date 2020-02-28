@@ -2,7 +2,7 @@ mat-card:not([class*="mat-elevation-z"]) {
     box-shadow: none;
 }
 
-mat-card-content {
+mat-card-title, mat-card-content {
     display: flex;
     justify-content: center;
 }

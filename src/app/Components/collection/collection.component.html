@@ -1,5 +1,4 @@
 <mat-card>
-  <mat-card-title>Le mie raccolte</mat-card-title>
   <mat-card-content>
     <mat-accordion class="w-50 p-3">
       <mat-expansion-panel *ngFor="let collection of collections">
@@ -14,9 +13,11 @@
             <span class="w-5 p-3">{{sticker.code}}</span>
             <span class="w-20 p-3">{{sticker.description}} </span>
             <!-- <span class="w-25 p-3"> {{sticker.quantity}}</span> -->
-            <mat-icon class="w-5" *ngIf="checkMancante(sticker) || checkDoppione(sticker) || checkCelo(sticker)" (click)="add(sticker)"> add </mat-icon>
-            <mat-icon class="w-5" *ngIf="checkDoppione(sticker)" (click)="remove(sticker)">remove</mat-icon>
-            <mat-icon class="w-5" *ngIf="checkCelo(sticker)" (click)="reset(sticker)">unarchive</mat-icon>
+            <mat-icon class="w-5" *ngIf="checkMancante(sticker) || checkDoppione(sticker) || checkCelo(sticker)"
+              (click)="increment(sticker,collection)"> add </mat-icon>
+            <mat-icon class="w-5" *ngIf="checkDoppione(sticker)" (click)="decrement(sticker,collection)">remove
+            </mat-icon>
+            <mat-icon class="w-5" *ngIf="checkCelo(sticker)" (click)="reset(sticker, collection)">unarchive</mat-icon>
             <mat-divider *ngIf="collection.stickers.length > 1"></mat-divider>
           </mat-list-item>
         </mat-list>
