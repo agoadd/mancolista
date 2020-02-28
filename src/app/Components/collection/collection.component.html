@@ -17,7 +17,8 @@
               (click)="increment(sticker,collection)"> add </mat-icon>
             <mat-icon class="w-5" *ngIf="checkDoppione(sticker)" (click)="decrement(sticker,collection)">remove
             </mat-icon>
-            <mat-icon class="w-5" *ngIf="checkCelo(sticker)" (click)="reset(sticker, collection)">unarchive</mat-icon>
+            <mat-icon class="w-5" *ngIf="checkCelo(sticker)" (click)="reset(sticker, collection)">unarchive
+            </mat-icon>
             <mat-divider *ngIf="collection.stickers.length > 1"></mat-divider>
           </mat-list-item>
         </mat-list>

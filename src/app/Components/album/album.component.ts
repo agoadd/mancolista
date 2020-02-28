@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CollectionsService } from './../../Services/collections.service';
 import { Component, OnInit } from '@angular/core';
 import { AlbumsService } from './../../Services/albums.service';
@@ -11,7 +12,7 @@ import { Album } from './../../Modules/album';
 export class AlbumComponent implements OnInit {
   public albums: Array<Album>;
 
-  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService) { }
+  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.albumsService.getAlbums().subscribe((album) => {
@@ -27,5 +28,6 @@ export class AlbumComponent implements OnInit {
 
   public addCollectionToUser(album: Album) {
     this.collectionsService.addCollectionToUser(album);
+    this.snackBar.open("Album aggiunto alle tue raccolte", null, { duration:5000 });
   }
 }
