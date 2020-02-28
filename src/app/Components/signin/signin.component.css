@@ -1,12 +1,13 @@
 :host {
     display: flex;
     justify-content: center;
-    margin: 100px 0px;
+    margin: 50px 0px;
 }
 
 mat-form-field {
     width: 100%;
     min-width: 100px;
+    margin-top: 20px;
 }
 
 mat-card-title, mat-card-content {
@@ -20,10 +21,6 @@ mat-card-actions, mat-card-footer {
 
 mat-card-footer a {
     cursor: pointer;
-}
-
-mat-form-field{
-    margin-top:20px;
 }
 
 .button {

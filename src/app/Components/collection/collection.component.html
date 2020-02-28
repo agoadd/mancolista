@@ -1,14 +1,27 @@
-<div>Raccolte</div>
-<div *ngFor="let collection of collections">
-  <span>{{collection?.album?.name}}</span>
-  <ul>
-    <li *ngFor="let sticker of collection.stickers">
-      <span>{{sticker?.code}}</span><span>{{sticker?.description}} </span><span> {{sticker?.quantity}}</span>
-      <button (click)="increment(sticker,collection)"> + </button>
-      <button (click)="reset(sticker,collection)"> M </button>
-      <button (click)="decrement(sticker,collection)"> - </button>
-    </li>
-  </ul>
-  <div>{{getCompletamento(collection)}}</div>
-  <button (click)="removeCollection(collection)"> Elimina </button>
-</div>
+<mat-card>
+  <mat-card-content>
+    <mat-accordion class="w-50 p-3">
+      <mat-expansion-panel *ngFor="let collection of collections">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="w-75 p-3">{{collection?.album?.name}}</mat-panel-title>
+          <mat-panel-description class="w-25 p-3">
+            <mat-progress-bar mode="determinate" value="{{getCompletamento(collection)*100}}"></mat-progress-bar>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item *ngFor="let sticker of collection.stickers">
+            <span class="w-5 p-3">{{sticker.code}}</span>
+            <span class="w-20 p-3">{{sticker.description}} </span>
+            <!-- <span class="w-25 p-3"> {{sticker.quantity}}</span> -->
+            <mat-icon class="w-5" *ngIf="checkMancante(sticker) || checkDoppione(sticker) || checkCelo(sticker)" (click)="increment(sticker,collection)"> add </mat-icon>
+            <mat-icon class="w-5" *ngIf="checkDoppione(sticker)" (click)="decrement(sticker,collection)">remove
+            </mat-icon>
+            <mat-icon class="w-5" *ngIf="checkCelo(sticker)" (click)="reset(sticker, collection)">unarchive</mat-icon>
+            <mat-divider *ngIf="collection.stickers.length > 1"></mat-divider>
+          </mat-list-item>
+        </mat-list>
+        <button (click)="removeCollection(collection)"></button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>

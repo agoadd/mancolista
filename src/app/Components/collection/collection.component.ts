@@ -12,13 +12,16 @@ export class CollectionComponent implements OnInit {
   public collections: Array<Collection>;
 
   constructor(private collectionsService: CollectionsService) {
-    this.collections = new Array<Collection>();
   }
 
   public ngOnInit(): void {
     this.collectionsService.getCollections()
       .subscribe((collections) => {
-        this.collections = collections.map(collection => { return { ...collection } as Collection });
+        this.collections = collections.map(collection => {
+          return {
+            ...collection
+          } as Collection
+        });
       });
   }
 
@@ -40,5 +43,17 @@ export class CollectionComponent implements OnInit {
 
   public removeCollection(collection: Collection) {
     return this.collectionsService.removeCollectionToUSer(collection);
+  }
+
+  public checkMancante(sticker: CollectionSticker): boolean {
+    return sticker.quantity == -1;
+  }
+
+  public checkCelo(sticker: CollectionSticker): boolean {
+    return sticker.quantity == 0;
+  }
+
+  public checkDoppione(sticker: CollectionSticker): boolean {
+    return sticker.quantity > 0;
   }
 }
