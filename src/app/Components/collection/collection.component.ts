@@ -22,6 +22,7 @@ export class CollectionComponent implements OnInit {
             ...collection
           } as Collection
         });
+
       });
   }
 
@@ -42,7 +43,7 @@ export class CollectionComponent implements OnInit {
   }
 
   public removeCollection(collection: Collection) {
-    return this.collectionsService.removeCollectionToUSer(collection);
+    return this.collectionsService.removeCollectionFromUser(collection);
   }
 
   public checkMancante(sticker: CollectionSticker): boolean {

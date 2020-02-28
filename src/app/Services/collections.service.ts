@@ -1,5 +1,5 @@
-import { CollectionSticker } from './../Modules/collectionSticker';
 import { Sticker } from './../Modules/sticker';
+import { CollectionSticker } from './../Modules/collectionSticker';
 import { Collection } from 'src/app/Modules/collection';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -24,40 +24,21 @@ export class CollectionsService {
   }
 
   public reset(sticker: CollectionSticker, collection: Collection) {
-    // let newCollection = collection
-    // this.removeCollection(collection)
-    // newCollection.stickers.forEach(s => {
-    //   if (s.code == sticker.code) {
-    //     s.quantity = -1;
-    //   }
-    // })
-    // this.addCollection(newCollection)
+    var newSticker = { ...sticker } as CollectionSticker
+    newSticker.quantity = -1
+    this.updateSticker(sticker, newSticker, collection.album.id)
   }
 
   public increment(sticker: CollectionSticker, collection: Collection) {
     var newSticker = { ...sticker } as CollectionSticker
     newSticker.quantity++
-    var query = this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', collection.album.id);
-    query.get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        doc.ref.update({
-          stickers: firebase.firestore.FieldValue.increment(1)
-        })
-      });
-    });
+    this.updateSticker(sticker, newSticker, collection.album.id)
   }
 
   public decrement(sticker: CollectionSticker, collection: Collection) {
     var newSticker = { ...sticker } as CollectionSticker
-    newSticker.quantity++
-    var query = this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', collection.album.id);
-    query.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        doc.ref.update({
-          stickers: firebase.firestore.FieldValue.arrayRemove({ sticker })
-        })
-      });
-    });
+    newSticker.quantity--
+    this.updateSticker(sticker, newSticker, collection.album.id)
   }
 
   public addCollectionToUser(album: Album) {
@@ -66,25 +47,34 @@ export class CollectionsService {
     this.addCollection(collection)
   }
 
-  public removeCollectionToUSer(collection: Collection) {
+  public removeCollectionFromUser(collection: Collection) {
     this.removeCollection(collection)
   }
 
   private removeCollection(collection: Collection) {
-    var query = this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', collection.album.id);
-    query.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        doc.ref.delete();
+    this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', collection.album.id).get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref.delete();
+        });
       });
-    });
   }
 
   private addCollection(collection: Collection) {
-    this.firestore.collection('users').doc(this.authService.userData.id).collection('collections').doc('cazzo').set({ album: collection.album });
+    this.firestore.collection('users/' + this.authService.userData.id + '/collections').add({ ...collection })
+  }
 
-    let stickersRef = this.firestore.collection('users').doc(this.authService.userData.id).collection('collections').doc('cazzo').collection('stickers')
-    collection.stickers.forEach(sticker => {
-      stickersRef.add({ sticker: sticker });
-    });
+  private updateSticker(sticker: CollectionSticker, newSticker: CollectionSticker, albumId: string) {
+    this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', albumId).get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.ref.update({
+            stickers: firebase.firestore.FieldValue.arrayRemove(sticker)
+          })
+          doc.ref.update({
+            stickers: firebase.firestore.FieldValue.arrayUnion(newSticker)
+          })
+        });
+      });
   }
 }

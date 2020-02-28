@@ -3,8 +3,10 @@
     <mat-accordion class="w-50 p-3">
       <mat-expansion-panel *ngFor="let collection of collections">
         <mat-expansion-panel-header>
-          <mat-panel-title class="w-75 p-3">{{collection?.album?.name}}</mat-panel-title>
-          <mat-panel-description class="w-25 p-3">
+          <mat-panel-title class="w-70 p-3">{{collection?.album?.name}}
+            <mat-icon class="w-10 p-3" (click)="removeCollection(collection)">delete</mat-icon>
+          </mat-panel-title>
+          <mat-panel-description class="w-20 p-3">
             <mat-progress-bar mode="determinate" value="{{getCompletamento(collection)*100}}"></mat-progress-bar>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -20,7 +22,6 @@
             <mat-divider *ngIf="collection.stickers.length > 1"></mat-divider>
           </mat-list-item>
         </mat-list>
-        <button (click)="removeCollection(collection)"></button>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-card-content>

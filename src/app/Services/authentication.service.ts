@@ -18,7 +18,7 @@ export class AuthenticationService {
     'auth/invalid-email': 'Inserire un indirizzo e-mail valido',
     'auth/wrong-password': 'La password è errata',
     'auth/weak-password': 'La password deve essere di almeno 6 caratteri',
-    'auth/email-already-in-use':'Questo indirizzo email è gia stato ustao per un altro account'
+    'auth/email-already-in-use': 'Questo indirizzo email è gia stato ustao per un altro account'
   };
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) { }
@@ -31,7 +31,6 @@ export class AuthenticationService {
         });
         //this.sendVerificationMail();
         this.firestore.doc('users/' + result.user.uid).set({
-          collections: [],
           username: username
         });
         this.router.navigate(['signin']);
