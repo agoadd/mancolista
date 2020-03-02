@@ -14,7 +14,7 @@ export class Collection implements Firebaseable {
     }
 
     public toFirebase(album: Album, stickers: Array<Sticker>) {
-        this.album = this.album.toFirebase(album.id, album.name, album.year);
+        this.album = this.album.toFirebase(album.id, album.name, album.year, album.coverPath);
         this.stickers = stickers.map((sticker) => {
             return {
                 quantity: -1,

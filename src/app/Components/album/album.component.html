@@ -1,10 +1,7 @@
-<div>Album</div>
-<div *ngFor="let album of albums">
-  <span>{{album.name}}</span>
-  <ul class="">
-    <li *ngFor="let sticker of album.stickers">
-      <span>{{sticker.code}}</span> {{sticker.description}}
-    </li>
-  </ul>
-  <button (click)=addCollectionToUser(album) type="button">Aggiungi {{album.name}} ai tuoi album</button>
-</div>
+<mat-card *ngFor="let album of albums">
+  <mat-card-title>{{album?.name}}</mat-card-title>
+  <img mat-card-image src="{{album?.coverPath}}">
+  <mat-card-actions>
+    <button mat-mini-fab color="primary" (click)=addCollectionToUser(album)>+</button>
+  </mat-card-actions>
+</mat-card>

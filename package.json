@@ -28,7 +28,8 @@
     "jquery": "^3.4.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@material-ui/core": "^4.8.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.1",
@@ -50,5 +51,8 @@
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"
+  },
+  "resolutions": {
+    "jss": "10.0.0"
   }
 }

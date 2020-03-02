@@ -1,7 +1,9 @@
+import { AlbumInfo } from './../../Modules/albumInfo';
 import { CollectionsService } from './../../Services/collections.service';
 import { Component, OnInit } from '@angular/core';
 import { AlbumsService } from './../../Services/albums.service';
 import { Album } from './../../Modules/album';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-album',
@@ -11,7 +13,7 @@ import { Album } from './../../Modules/album';
 export class AlbumComponent implements OnInit {
   public albums: Array<Album>;
 
-  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService) { }
+  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.albumsService.getAlbums().subscribe((album) => {
@@ -27,5 +29,13 @@ export class AlbumComponent implements OnInit {
 
   public addCollectionToUser(album: Album) {
     this.collectionsService.addCollectionToUser(album);
+    this.openSnackBar();
   }
+
+  private openSnackBar() {
+    this._snackBar.open("Album Aggiunto", "Ok", {
+      duration: 2000,
+    });
+  }
+
 }
