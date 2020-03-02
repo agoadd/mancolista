@@ -20,7 +20,7 @@ export class CollectionsService {
   }
 
   public getCollections() {
-    return this.firestore.collection<Collection>('users/' + this.authService.userData.id + '/collections').valueChanges();
+    return this.firestore.collection<Collection>('users/' + this.authService.userId + '/collections').valueChanges();
   }
 
   public reset(sticker: CollectionSticker, collection: Collection) {
@@ -52,7 +52,7 @@ export class CollectionsService {
   }
 
   private removeCollection(collection: Collection) {
-    this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', collection.album.id).get()
+    this.firestore.collection('users/' + this.authService.userId + '/collections').ref.where('album.id', '==', collection.album.id).get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           doc.ref.delete();
@@ -61,11 +61,11 @@ export class CollectionsService {
   }
 
   private addCollection(collection: Collection) {
-    this.firestore.collection('users/' + this.authService.userData.id + '/collections').add({ ...collection })
+    this.firestore.collection('users/' + this.authService.userId + '/collections').add({ ...collection })
   }
 
   private updateSticker(sticker: CollectionSticker, newSticker: CollectionSticker, albumId: string) {
-    this.firestore.collection('users/' + this.authService.userData.id + '/collections').ref.where('album.id', '==', albumId).get()
+    this.firestore.collection('users/' + this.authService.userId + '/collections').ref.where('album.id', '==', albumId).get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           doc.ref.update({

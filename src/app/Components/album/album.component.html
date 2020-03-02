@@ -6,5 +6,5 @@
       <span>{{sticker.code}}</span> {{sticker.description}}
     </li>
   </ul>
-  <button (click)=addCollectionToUser(album) type="button">Aggiungi {{album.name}} ai tuoi album</button>
+  <button *ngIf="authService.user | async" (click)=addCollectionToUser(album) type="button">Aggiungi {{album.name}} ai tuoi album</button>
 </div>

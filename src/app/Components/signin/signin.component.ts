@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './../../Services/authentication.service';
 
@@ -13,7 +14,7 @@ export class SigninComponent implements OnInit {
   public email: string;
   public password: string;
 
-  constructor(public authService: AuthenticationService) {
+  constructor(public authService: AuthenticationService, private router: Router) {
     this.showSignIn = true;
     this.showSignUp = false;
   }
@@ -34,5 +35,6 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authService.isLoggedIn) this.router.navigate(['home']);
   }
 }
