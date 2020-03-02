@@ -3,7 +3,6 @@ import { CollectionsService } from './../../Services/collections.service';
 import { Component, OnInit } from '@angular/core';
 import { AlbumsService } from './../../Services/albums.service';
 import { Album } from './../../Modules/album';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-album',
