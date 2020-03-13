@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Album } from './../Modules/album';
+import { Album } from './../../modules/album/album';
 
 @Injectable({
   providedIn: 'root'

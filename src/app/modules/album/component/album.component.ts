@@ -1,9 +1,9 @@
-import { AuthenticationService } from './../../Services/authentication.service';
+import { Album } from './../album';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CollectionsService } from './../../Services/collections.service';
 import { Component, OnInit } from '@angular/core';
-import { AlbumsService } from './../../Services/albums.service';
-import { Album } from './../../Modules/album';
+import { AuthenticationService } from './../../../core/authentication/services/authentication.service';
+import { CollectionsService } from './../../../core/services/collections.service';
+import { AlbumsService } from './../../../core/services/albums.service';
 
 @Component({
   selector: 'app-album',

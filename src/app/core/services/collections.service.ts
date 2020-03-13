@@ -1,11 +1,10 @@
-import { Sticker } from './../Modules/sticker';
-import { CollectionSticker } from './../Modules/collectionSticker';
-import { Collection } from 'src/app/Modules/collection';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthenticationService } from './authentication.service';
-import { Album } from '../Modules/album';
 import * as firebase from 'firebase/app';
+import { Album } from './../../modules/album/album';
+import { CollectionSticker } from './../../modules/sticker/collectionSticker';
+import { Collection } from './../../modules/collection/collection';
+import { AuthenticationService } from '../authentication/services/authentication.service';
 
 @Injectable({
   providedIn: 'root'

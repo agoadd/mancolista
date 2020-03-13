@@ -1,0 +1,39 @@
+<mat-card class="w-45" *ngIf="!(authService.user |async)">
+  <mat-card-header>
+    <mat-card-title>Effettua il login</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mat-label>E-Mail</mat-label>
+      <input matInput type="text" [(ngModel)]="email" placeholder="Email...." required>
+      <mat-hint>Inserisci la mail</mat-hint>
+    </mat-form-field>
+    <mat-form-field *ngIf="showSignUp" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" [(ngModel)]="username" placeholder="Username...." required>
+      <mat-hint>Inserisci l'username</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hide?'password':'text'" [(ngModel)]="password" placeholder="Password...." required>
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-hint>Inserisci la password</mat-hint>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="signIn()" [disabled]="!email || !password" *ngIf="showSignIn"> Login </button>
+    <button mat-raised-button (click)="signUp()" [disabled]="!email || !password || !username" *ngIf="showSignUp">
+      Registrati </button>
+  </mat-card-actions>
+  <mat-error>
+    <div class="error" *ngIf="authService.errorMessage">
+      <h5 class="text-danger">{{ authService.errorMessage}}</h5>
+    </div>
+  </mat-error>
+  <mat-card-footer>
+    <mat-label *ngIf="showSignIn">Non hai un account? <a (click)="toggle()">Registrati</a></mat-label>
+    <mat-label *ngIf="showSignIn">Hai dimenticato la password? <a routerLink="/reset-password">Clicca qui</a>
+    </mat-label>
+    <mat-label *ngIf="showSignUp">Hai già un account? Effettua il <a (click)="toggle()">login</a></mat-label>
+  </mat-card-footer>
+</mat-card>
