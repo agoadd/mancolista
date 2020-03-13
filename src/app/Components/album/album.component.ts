@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../Services/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CollectionsService } from './../../Services/collections.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ import { Album } from './../../Modules/album';
 export class AlbumComponent implements OnInit {
   public albums: Array<Album>;
 
-  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService, public snackBar: MatSnackBar) { }
+  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService, public authService: AuthenticationService, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.albumsService.getAlbums().subscribe((album) => {

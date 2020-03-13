@@ -9,11 +9,11 @@ import { AuthorizationGuard } from './Guards/authorization.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
-  { path: 'home', component: SigninComponent },
+  { path: 'home', component: UserComponent, canActivate: [AuthorizationGuard] },
   { path: 'signin', component: SigninComponent },
   { path: 'reset-password', component: ForgotPasswordComponent },
   { path: 'user', component: UserComponent, canActivate: [AuthorizationGuard] },
-  { path: 'album', component: AlbumComponent, canActivate: [AuthorizationGuard] },
+  { path: 'album', component: AlbumComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

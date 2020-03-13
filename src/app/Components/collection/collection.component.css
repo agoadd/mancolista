@@ -1,10 +1,37 @@
-mat-card:not([class*="mat-elevation-z"]) {
-    box-shadow: none;
+mat-accordion {
+    width: 60%;
+    display: block;
+    margin: auto
 }
 
-mat-card-title, mat-card-content {
-    display: flex;
-    justify-content: center;
+mat-expansion-panel {
+    max-height: 100%;
+}
+
+mat-panel-title mat-label {
+    width: 100%;
+    max-height: 20px;
+    overflow: hidden;
+}
+
+mat-panel-title mat-label.fit {
+    max-width: 40px;
+}
+
+mat-progress-bar {
+    top: 10px;
+}
+
+mat-list-item:nth-child(even) {
+    background: #f2f2f2;
+}
+
+mat-list-item .code, mat-list-item .add, mat-list-item .remove, mat-list-item .unarchive, mat-list-item .description {
+    padding-right: 10px;
+}
+
+mat-label {
+    padding: 3px 6px;
 }
 
 mat-icon {

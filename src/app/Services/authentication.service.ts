@@ -1,5 +1,5 @@
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -12,7 +12,6 @@ import { User } from './../Modules/user';
 export class AuthenticationService {
   public err: string;
   public user: Observable<firebase.User>;
-  public userData: User;
   private params = {
     'auth/user-not-found': 'Inserire un indirizzo e-mail valido',
     'auth/invalid-email': 'Inserire un indirizzo e-mail valido',
@@ -43,8 +42,6 @@ export class AuthenticationService {
   public signIn(email: string, password: string): void {
     this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value) => {
-        this.user = this.firebaseAuth.authState;
-        this.userData = new User();
         this.setUserData(value.user);
         this.router.navigate(['user']);
       })
@@ -55,18 +52,19 @@ export class AuthenticationService {
 
   public signOut(): any {
     return this.firebaseAuth.auth.signOut().then(() => {
-      this.userData = undefined;
+      localStorage.removeItem("token");
       this.router.navigate(['home']);
     });
   }
 
   get isLoggedIn(): boolean {
     //return (user !== null && user.emailVerified !== false) ? true : false;
-    return (this.userData !== undefined) ? true : false;
+    return ((localStorage.getItem("token") !== null) && (localStorage.getItem("token") !== "") && (localStorage.getItem("token") !== "undefined") && (localStorage.getItem("token") !== undefined));
   }
 
-  public getUser() {
-    return this.firestore.doc<User>('users/' + this.userData.id).valueChanges();
+  public getLoggedUser() {
+    if (this.isLoggedIn)
+      return this.firestore.doc<User>('users/' + this.userId).valueChanges();
   }
 
   public forgotPassword(passwordResetEmail): any {
@@ -86,14 +84,16 @@ export class AuthenticationService {
       });
   }
 
-  private setUserData(userData: firebase.User) {
-    this.userData.id = userData.uid;
-    this.userData.username = userData.displayName;
+  get userId(): string {
+    return localStorage.getItem("token");
   }
 
-  public setUser(user: User) {
-    let id = this.userData.id;
-    this.userData = user;
-    this.userData.id = id;
+  private setUserData(userData: any) {
+    this.user = this.firebaseAuth.authState;
+    localStorage.setItem("token", userData.uid);
+  }
+
+  public updateUserData() {
+    this.user = this.firebaseAuth.authState;
   }
 }

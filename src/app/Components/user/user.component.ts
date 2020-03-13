@@ -10,8 +10,8 @@ export class UserComponent implements OnInit {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe((user) => {
-      this.authService.setUser(user);
+    this.authService.getLoggedUser().subscribe((user) => {
+      this.authService.updateUserData();
     });
   }
 }
