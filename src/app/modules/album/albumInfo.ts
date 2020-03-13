@@ -1,4 +1,4 @@
-import { Firebaseable } from './firebaseable';
+import { Firebaseable } from './../../shared/interfaces/firebaseable';
 
 export class AlbumInfo implements Firebaseable {
     public id: string;

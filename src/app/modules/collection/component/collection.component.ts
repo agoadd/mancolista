@@ -1,7 +1,7 @@
-import { CollectionSticker } from './../../Modules/collectionSticker';
 import { Component, OnInit } from '@angular/core';
-import { Collection } from 'src/app/Modules/collection';
-import { CollectionsService } from 'src/app/Services/collections.service';
+import { Collection } from '../collection';
+import { CollectionSticker } from '../../sticker/collectionSticker';
+import { CollectionsService } from './../../../core/services/collections.service';
 
 @Component({
   selector: 'app-collection',

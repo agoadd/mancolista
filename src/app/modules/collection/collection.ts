@@ -1,8 +1,9 @@
-import { Sticker } from './sticker';
-import { CollectionSticker } from './collectionSticker';
-import { AlbumInfo } from './albumInfo';
-import { Album } from './album';
-import { Firebaseable } from './firebaseable';
+import { Firebaseable } from './../../shared/interfaces/firebaseable';
+import { Sticker } from './../sticker/sticker';
+import { CollectionSticker } from './../sticker/collectionSticker';
+import { AlbumInfo } from './../album/albumInfo';
+import { Album } from '../album/album';
+
 
 export class Collection implements Firebaseable {
     public album: AlbumInfo;

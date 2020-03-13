@@ -1,4 +1,4 @@
-import { Collection } from './collection';
+import { Collection } from './../collection/collection';
 
 export class User {
     public id: string;

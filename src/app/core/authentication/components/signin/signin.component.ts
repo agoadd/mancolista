@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from './../../Services/authentication.service';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './../../../../shared/components/dialog/dialog.component';
+import { AuthenticationService } from './../../services/authentication.service';
 
 @Component({
   selector: 'app-signin',
@@ -13,8 +15,9 @@ export class SigninComponent implements OnInit {
   public username: string;
   public email: string;
   public password: string;
+  public hide=true;
 
-  constructor(public authService: AuthenticationService, private router: Router) {
+  constructor(public authService: AuthenticationService, private router: Router, private dialog: MatDialog) {
     this.showSignIn = true;
     this.showSignUp = false;
   }
@@ -30,8 +33,16 @@ export class SigninComponent implements OnInit {
 
   public signUp() {
     this.authService.signUp(this.username, this.email, this.password);
+    this.openDialog();
     this.showSignIn = true;
     this.showSignUp = false;
+  }
+
+  private openDialog(): void {
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.data = { message: "Abbiamo inviato una mail di conferma all'indirizzo " + this.email + ". Controlla la tua posta e clicca sul link per verificare la mail." }
+    this.dialog.open(DialogComponent, dialogConfig);
+
   }
 
   ngOnInit() {

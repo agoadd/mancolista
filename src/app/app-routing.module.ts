@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserComponent } from './Components/user/user.component';
-import { AlbumComponent } from './Components/album/album.component';
-import { SigninComponent } from './Components/signin/signin.component';
-import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
-import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
-import { AuthorizationGuard } from './Guards/authorization.guard';
+import { UserComponent } from './modules/user/component/user.component';
+import { AlbumComponent } from './modules/album/component/album.component';
+import { SigninComponent } from './core/authentication/components/signin/signin.component';
+import { ForgotPasswordComponent } from './core/authentication/components/forgot-password/forgot-password.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { AuthorizationGuard } from './core/guards/authorization.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
