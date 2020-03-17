@@ -13,6 +13,7 @@ export class AuthenticationService {
   public errorMessage: string;
   public user: Observable<firebase.User>;
   private userData: firebase.User;
+  private isAuthorizedUser: boolean;
   private params = {
     'auth/user-not-found': 'Inserire un indirizzo e-mail valido',
     'auth/invalid-email': 'Inserire un indirizzo e-mail valido',
@@ -23,6 +24,7 @@ export class AuthenticationService {
   };
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) {
+    this.isAuthorizedUser = false;
     this.firebaseAuth.authState.subscribe(userData => {
       this.userData = userData;
     });
@@ -38,6 +40,7 @@ export class AuthenticationService {
         this.firestore.doc('users/' + result.user.uid).set({
           username: username
         });
+        this.errorMessage = undefined;
       })
       .catch((error) => {
         this.errorMessage = this.params[error.code];
@@ -47,8 +50,10 @@ export class AuthenticationService {
   public signIn(email: string, password: string): void {
     this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value) => {
-        if (!this.userData?.emailVerified) throw { code: "auth/verify-email" };
+        if (!value.user.emailVerified) throw { code: "auth/verify-email" };
+        this.isAuthorizedUser = true;
         this.user = this.firebaseAuth.authState;
+        this.errorMessage = undefined;
         this.router.navigate(['user']);
       })
       .catch((error) => {
@@ -62,7 +67,7 @@ export class AuthenticationService {
 
   public signOut(): any {
     return this.firebaseAuth.auth.signOut().then(() => {
-      this.userData = null;
+      this.isAuthorizedUser = false;
       this.router.navigate(['signin']);
     });
   }
@@ -82,7 +87,7 @@ export class AuthenticationService {
   }
 
   get isLoggedIn(): boolean {
-    return ((this.userData !== undefined) && (this.userData !== null) && (this.userData?.emailVerified));
+    return ((!!this?.user) && (this.isAuthorizedUser));
   }
 
   get userId(): string {
