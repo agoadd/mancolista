@@ -29,7 +29,7 @@ export class AlbumComponent implements OnInit {
 
   public addCollectionToUser(album: Album) {
     this.collectionsService.addCollectionToUser(album);
-    this.snackBar.open("Album aggiunto alle tue raccolte", null, { duration: 5000 });
+    this.snackBar.open("Album aggiunto alle tue raccolte", null, { duration: 500 });
   }
 
 }
