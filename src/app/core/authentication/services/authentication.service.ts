@@ -23,7 +23,6 @@ export class AuthenticationService {
   };
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) {
-    // this.firebaseAuth.auth.useDeviceLanguage(); // controllare cambiando lingua sul pc se becca l'italiano (forse non va)
     this.firebaseAuth.authState.subscribe(userData => {
       this.userData = userData;
     });
@@ -53,7 +52,7 @@ export class AuthenticationService {
         this.router.navigate(['user']);
       })
       .catch((error) => {
-        this.errorMessage = this.params[error.code];//error.message;
+        this.errorMessage = this.params[error.code];
       });
   }
 
@@ -63,8 +62,8 @@ export class AuthenticationService {
 
   public signOut(): any {
     return this.firebaseAuth.auth.signOut().then(() => {
-      localStorage.removeItem("token");
-      this.router.navigate(['home']);
+      this.userData = null;
+      this.router.navigate(['signin']);
     });
   }
 
@@ -72,8 +71,8 @@ export class AuthenticationService {
     if (this.isLoggedIn) return this.firestore.doc<User>('users/' + this.userId).valueChanges();
   }
 
-  public forgotPassword(passwordResetEmail): any {
-    return this.firebaseAuth.auth.sendPasswordResetEmail(passwordResetEmail)
+  public forgotPassword(email): any {
+    return this.firebaseAuth.auth.sendPasswordResetEmail(email)
       .then(() => {
         window.alert('Password reset email sent, check your inbox.');
       })
@@ -83,7 +82,7 @@ export class AuthenticationService {
   }
 
   get isLoggedIn(): boolean {
-    return ((this.userData !== undefined) && (this.userData?.emailVerified));
+    return ((this.userData !== undefined) && (this.userData !== null) && (this.userData?.emailVerified));
   }
 
   get userId(): string {
