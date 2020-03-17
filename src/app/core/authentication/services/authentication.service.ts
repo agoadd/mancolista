@@ -91,6 +91,6 @@ export class AuthenticationService {
   }
 
   get userId(): string {
-    return this.userData?.uid;
+    return this.userData.uid;
   }
 }

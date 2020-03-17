@@ -19,7 +19,7 @@ export class CollectionsService {
   }
 
   public getCollections() {
-    return this.firestore.collection<Collection>('users/' + this.authService?.userId + '/collections').valueChanges();
+    return this.firestore.collection<Collection>('users/' + this.authService.userId + '/collections').valueChanges();
   }
 
   public reset(sticker: CollectionSticker, collection: Collection) {
