@@ -13,7 +13,6 @@ export class AuthenticationService {
   public errorMessage: string;
   public user: Observable<firebase.User>;
   private userData: firebase.User;
-  private isAuthorizedUser: boolean;
   private params = {
     'auth/user-not-found': 'Inserire un indirizzo e-mail valido',
     'auth/invalid-email': 'Inserire un indirizzo e-mail valido',
@@ -24,9 +23,10 @@ export class AuthenticationService {
   };
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) {
-    this.isAuthorizedUser = false;
-    this.firebaseAuth.authState.subscribe(userData => {
-      this.userData = userData;
+    firebase.auth().useDeviceLanguage();
+    this.firebaseAuth.auth.onAuthStateChanged(userData => {
+      this.userData = userData;      
+      this.errorMessage = undefined;
     });
   }
 
@@ -40,7 +40,6 @@ export class AuthenticationService {
         this.firestore.doc('users/' + result.user.uid).set({
           username: username
         });
-        this.errorMessage = undefined;
       })
       .catch((error) => {
         this.errorMessage = this.params[error.code];
@@ -51,9 +50,7 @@ export class AuthenticationService {
     this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
       .then((value) => {
         if (!value.user.emailVerified) throw { code: "auth/verify-email" };
-        this.isAuthorizedUser = true;
         this.user = this.firebaseAuth.authState;
-        this.errorMessage = undefined;
         this.router.navigate(['user']);
       })
       .catch((error) => {
@@ -67,7 +64,6 @@ export class AuthenticationService {
 
   public signOut(): any {
     return this.firebaseAuth.auth.signOut().then(() => {
-      this.isAuthorizedUser = false;
       this.router.navigate(['signin']);
     });
   }
@@ -79,15 +75,15 @@ export class AuthenticationService {
   public forgotPassword(email): any {
     return this.firebaseAuth.auth.sendPasswordResetEmail(email)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        console.log('Password reset email sent, check your inbox.');
       })
       .catch((error) => {
-        window.alert(error);
+        console.log(error);
       });
   }
 
   get isLoggedIn(): boolean {
-    return ((!!this?.user) && (this.isAuthorizedUser));
+    return (!!this?.userData);
   }
 
   get userId(): string {
