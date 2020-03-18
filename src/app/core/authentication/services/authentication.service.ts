@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
+import { environment } from './../../../../environments/environment';
 import { User } from './../../../modules/user/user';
 
 @Injectable({
@@ -25,7 +26,8 @@ export class AuthenticationService {
   constructor(private firebaseAuth: AngularFireAuth, private router: Router, private firestore: AngularFirestore) {
     firebase.auth().useDeviceLanguage();
     this.firebaseAuth.auth.onAuthStateChanged(userData => {
-      this.userData = userData;      
+      this.userData = userData;
+      this.setUserRole();
       this.errorMessage = undefined;
     });
   }
@@ -33,13 +35,9 @@ export class AuthenticationService {
   public signUp(username: string, email: string, password: string): void {
     this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        result.user.updateProfile({
-          displayName: username
-        });
+        result.user.updateProfile({ displayName: username });
         this.sendVerificationMail();
-        this.firestore.doc('users/' + result.user.uid).set({
-          username: username
-        });
+        this.firestore.doc('users/' + result.user.uid).set({ username: username });
       })
       .catch((error) => {
         this.errorMessage = this.params[error.code];
@@ -82,10 +80,17 @@ export class AuthenticationService {
       });
   }
 
+  private setUserRole(): void {
+    if (this.userData) this.userData['role'] = (!!environment.admins.filter(x => x.email == this.userData.email) ? 'admin' : 'user');
+  }
+
   get isLoggedIn(): boolean {
     return (!!this?.userData);
   }
-
+  get isAdmin(): boolean {
+    if (this.isLoggedIn) return this.userData['role'] == 'admin';
+    return false;
+  }
   get userId(): string {
     return this.userData.uid;
   }

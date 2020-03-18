@@ -1,36 +1,39 @@
 <mat-sidenav-container>
-  <mat-sidenav #drawer fixedInViewport="true" mode="push" opened="false">
-      <mat-toolbar color="primary">
-          <div>Menu</div>
-          <mat-icon (click)="drawer.close()">close</mat-icon>
-      </mat-toolbar>
-      <mat-nav-list>
-          <a mat-list-item>
-              <mat-icon>person</mat-icon>
-          </a>
-          <a mat-list-item *ngIf="authService.user | async">
-              <span class="username">{{ (authService.user | async)?.displayName }}</span>
-              <span class="email">{{ (authService.user | async)?.email }}</span>
-          </a>
-          <mat-divider></mat-divider>
-          <a mat-list-item *ngIf="authService.user | async" (click)="logout()">
-              <mat-icon>exit_to_app</mat-icon> <span>Logout</span>
-          </a>
-          <a mat-list-item routerLink="/album" (click)="drawer.close()">
-              <mat-icon>list</mat-icon> <span>Album</span>
-          </a>
-          <a mat-list-item *ngIf="authService.user | async" routerLink="/user" (click)="drawer.close()">
-              <mat-icon>person</mat-icon> <span>Profilo</span>
-          </a>
-      </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-      <mat-toolbar class="fixed" color="primary">
-          <mat-icon *ngIf="!drawer.opened" (click)="drawer.toggle()"> menu </mat-icon>
-          <span class="title" routerLink="/">{{ title }}</span>
-      </mat-toolbar>
-      <div class="content">
-          <router-outlet></router-outlet>
-      </div>
-  </mat-sidenav-content>
+    <mat-sidenav #drawer fixedInViewport="true" mode="push" opened="false">
+        <mat-toolbar color="primary">
+            <div>Menu</div>
+            <mat-icon (click)="drawer.close()">close</mat-icon>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item>
+                <mat-icon>person</mat-icon>
+            </a>
+            <a mat-list-item *ngIf="authService.user | async">
+                <span class="username">{{ (authService.user | async)?.displayName }}</span>
+                <span class="email">{{ (authService.user | async)?.email }}</span>
+            </a>
+            <mat-divider></mat-divider>
+            <a mat-list-item *ngIf="authService.user | async" (click)="logout(); drawer.close()">
+                <mat-icon>exit_to_app</mat-icon> <span>Logout</span>
+            </a>
+            <a mat-list-item routerLink="/album" (click)="drawer.close()">
+                <mat-icon>library_books</mat-icon> <span>Album</span>
+            </a>
+            <a mat-list-item *ngIf="authService.isAdmin" routerLink="/new-album" (click)="drawer.close()">
+                <mat-icon>library_add</mat-icon> <span>Nuovo album</span>
+            </a>
+            <a mat-list-item *ngIf="authService.user | async" routerLink="/user" (click)="drawer.close()">
+                <mat-icon>person</mat-icon> <span>Profilo</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="fixed" color="primary">
+            <mat-icon *ngIf="!drawer.opened" (click)="drawer.toggle()"> menu </mat-icon>
+            <span class="title" routerLink="/">{{ title }}</span>
+        </mat-toolbar>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
 </mat-sidenav-container>

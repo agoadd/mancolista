@@ -6,11 +6,11 @@ import { AuthenticationService } from '../authentication/services/authentication
 @Injectable({
   providedIn: 'root'
 })
-export class NavigationGuard implements CanActivate {
+export class  NavigationGuard implements CanActivate {
   constructor(public authService: AuthenticationService, public router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    //if (!this.authService.hasPermission) this.router.navigate(['signin']);
+    if (!this.authService.isAdmin) this.router.navigate(['signin']);
     return true;
   }
 }
