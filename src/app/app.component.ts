@@ -7,11 +7,5 @@ import { AuthenticationService } from './core/authentication/services/authentica
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Mancolista';
-
-  constructor(public authService: AuthenticationService) { }
-
-  public logout(): void {
-    this.authService.signOut();
-  }
+  constructor() { }
 }

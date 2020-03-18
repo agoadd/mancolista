@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './core/header/header.component';
 import { SigninComponent } from './core/authentication/components/signin/signin.component';
 import { ForgotPasswordComponent } from './core/authentication/components/forgot-password/forgot-password.component';
 import { AlbumComponent } from './modules/album/component/album.component';
@@ -23,6 +24,7 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
 @NgModule({
    declarations: [
       AppComponent,
+      HeaderComponent,
       SigninComponent,
       ForgotPasswordComponent,
       AlbumComponent,
