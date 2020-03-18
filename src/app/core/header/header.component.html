@@ -19,7 +19,7 @@
             <a mat-list-item routerLink="/album" (click)="drawer.close()">
                 <mat-icon>library_books</mat-icon> <span>Album</span>
             </a>
-            <a mat-list-item *ngIf="authService.isAdmin" routerLink="/new-album" (click)="drawer.close()">
+            <a mat-list-item *ngIf="authService?.isAdmin" routerLink="/new-album" (click)="drawer.close()">
                 <mat-icon>library_add</mat-icon> <span>Nuovo album</span>
             </a>
             <a mat-list-item *ngIf="authService.user | async" routerLink="/user" (click)="drawer.close()">

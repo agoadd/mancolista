@@ -81,16 +81,21 @@ export class AuthenticationService {
   }
 
   private setUserRole(): void {
-    if (this.userData) this.userData['role'] = (!!environment.admins.filter(x => x.email == this.userData.email) ? 'admin' : 'user');
+
+    if (this.userData) {
+      this.userData['role'] = (environment.admins.findIndex((x) => x.email == this.userData.email) >= 0 ? 'admin' : 'user');
+    }
   }
 
   get isLoggedIn(): boolean {
     return (!!this?.userData);
   }
+
   get isAdmin(): boolean {
-    if (this.isLoggedIn) return this.userData['role'] == 'admin';
-    return false;
+    if (!this.userData) return false;
+    return this.userData['role'] == 'admin';
   }
+
   get userId(): string {
     return this.userData.uid;
   }

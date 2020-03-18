@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Nuova figurina</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Nome</mat-label>
+    <input matInput type="text" [(ngModel)]="data.code" placeholder="Codice figurina...." required>
+    <mat-hint>Inserisci il codice della figurina</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Descrizione</mat-label>
+    <input matInput type="text" [(ngModel)]="data.description" placeholder="Descrizione figurina...." required>
+    <mat-hint>Inserisci la descrizione della figurina</mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">No</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Yes</button>
+</div>

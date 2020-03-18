@@ -1,0 +1,26 @@
+<mat-card class="w-45" *ngIf="(authService.isAdmin)">
+  <mat-card-header>
+    <mat-card-title>Inserisci un nuovo album</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" [(ngModel)]="album.name" placeholder="Nome album...." required>
+      <mat-hint>Inserisci il nome dell'album</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Anno</mat-label>
+      <input matInput type="text" [(ngModel)]="album.year" placeholder="Anno album...." required>
+      <mat-hint>Inserisci l'anno dell'album</mat-hint>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="openDialog()">Aggiungi una figurina </button>
+    <button mat-raised-button> Conferma </button>
+  </mat-card-actions>
+  <mat-error>
+    <div class="error" *ngIf="authService.errorMessage">
+      <h5 class="text-danger">{{ authService.errorMessage }}</h5>
+    </div>
+  </mat-error>
+</mat-card>
