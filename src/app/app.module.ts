@@ -15,9 +15,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { SigninComponent } from './core/authentication/components/signin/signin.component';
 import { ForgotPasswordComponent } from './core/authentication/components/forgot-password/forgot-password.component';
+import { AlbumListComponent } from './modules/album-list/component/album-list.component';
 import { AlbumComponent } from './modules/album/component/album.component';
 import { StickerComponent } from './modules/sticker/component/sticker.component';
-import { NewAlbumComponent } from './modules/new-album/component/new-album.component';
 import { UserComponent } from './modules/user/component/user.component';
 import { CollectionComponent } from './modules/collection/component/collection.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
@@ -29,8 +29,8 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
       HeaderComponent,
       SigninComponent,
       ForgotPasswordComponent,
+      AlbumListComponent,
       AlbumComponent,
-      NewAlbumComponent,
       StickerComponent,
       UserComponent,
       CollectionComponent,

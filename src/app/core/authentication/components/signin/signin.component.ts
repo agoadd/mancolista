@@ -47,5 +47,6 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isLoggedIn) this.router.navigate(['home']);
+    else this.router.navigate(['signin']);
   }
 }

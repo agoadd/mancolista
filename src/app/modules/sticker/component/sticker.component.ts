@@ -14,7 +14,6 @@ export class StickerComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
-
   ngOnInit() {
   }
 }

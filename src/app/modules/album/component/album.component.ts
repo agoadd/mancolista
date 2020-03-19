@@ -1,9 +1,11 @@
-import { Album } from './../album';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from './../../../core/authentication/services/authentication.service';
-import { CollectionsService } from './../../../core/services/collections.service';
-import { AlbumsService } from './../../../core/services/albums.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from '../../../core/authentication/services/authentication.service';
+import { AlbumsService } from '../../../core/services/albums.service';
+import { Album } from './../album';
+import { Sticker } from '../../sticker/sticker';
+import { StickerComponent } from '../../sticker/component/sticker.component';
 
 @Component({
   selector: 'app-album',
@@ -11,25 +13,27 @@ import { AlbumsService } from './../../../core/services/albums.service';
   styleUrls: ['./album.component.css']
 })
 export class AlbumComponent implements OnInit {
-  public albums: Array<Album>;
+  public album: Album;
 
-  constructor(private albumsService: AlbumsService, private collectionsService: CollectionsService, public authService: AuthenticationService, public snackBar: MatSnackBar) { }
+  constructor(public authService: AuthenticationService, private albumService: AlbumsService, private dialog: MatDialog, public snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
-    this.albumsService.getAlbums().subscribe((album) => {
-      this.albums = album.map((element) => {
-        return {
-          id: element.payload.doc.id,
-          ...element.payload.doc.data()
-        } as Album
-      });
+  public setAlbum(): void {
+    this.albumService.setAlbum(this.album);
+    this.snackBar.open("Nuovo album aggiunto!", null, { duration: 500 });
+    this.album = new Album();
+  }
 
+  public openDialog(): void {
+    const addStickerDialog = this.dialog.open(StickerComponent, { data: {} });
+
+    addStickerDialog.afterClosed().subscribe(result => {
+      if (result == undefined || Object.keys(result).length == 0) return;
+      this.album.stickers.push(result as Sticker);
+      this.snackBar.open("Figurina aggiunta al nuovo album!", null, { duration: 500 });
     });
   }
 
-  public addCollectionToUser(album: Album) {
-    this.collectionsService.addCollectionToUser(album);
-    this.snackBar.open("Album aggiunto alle tue raccolte", null, { duration: 500 });
+  ngOnInit() {
+    this.album = new Album();
   }
-
 }
