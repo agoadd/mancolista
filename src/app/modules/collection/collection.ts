@@ -5,6 +5,7 @@ import { AlbumInfo } from './../album/albumInfo';
 import { Album } from '../album/album';
 
 export class Collection implements Firebaseable {
+    public id: string
     public album: AlbumInfo;
     public stickers: Array<CollectionSticker>;
 
