@@ -18,9 +18,7 @@ export class CollectionComponent implements OnInit {
     this.collectionsService.getCollections()
       .subscribe((collections) => {
         this.collections = collections.map(collection => {
-          return {
-            ...collection
-          } as Collection
+          return { id: collection.payload.doc.id, ...collection.payload.doc.data() } as Collection
         });
 
       });
