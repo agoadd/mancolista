@@ -1,7 +1,8 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './../../../../shared/components/dialog/dialog.component';
+import { SpinnerComponent } from './../../../../shared/components/spinner/spinner.component';
 import { AuthenticationService } from './../../services/authentication.service';
 
 @Component({
@@ -15,9 +16,11 @@ export class SigninComponent implements OnInit {
   public username: string;
   public email: string;
   public password: string;
-  public hide=true;
+  public hide = true;
 
-  constructor(public authService: AuthenticationService, private router: Router, private dialog: MatDialog) {
+  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+
+  constructor(public authService: AuthenticationService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver, private dialog: MatDialog) {
     this.showSignIn = true;
     this.showSignUp = false;
   }
@@ -28,6 +31,7 @@ export class SigninComponent implements OnInit {
   }
 
   public signIn(): void {
+    this.addSpinnerOverlay();
     this.authService.signIn(this.email, this.password);
   }
 
@@ -42,7 +46,12 @@ export class SigninComponent implements OnInit {
     const dialogConfig = new MatDialogConfig()
     dialogConfig.data = { message: "Abbiamo inviato una mail di conferma all'indirizzo " + this.email + ". Controlla la tua posta e clicca sul link per verificare la mail." }
     this.dialog.open(DialogComponent, dialogConfig);
+  }
 
+  // Crea dinamicamente uno SpinnerComponent nel ng-template
+  private addSpinnerOverlay(): void {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(SpinnerComponent);
+    this.container.createComponent(componentFactory);
   }
 
   ngOnInit() {
