@@ -1,4 +1,4 @@
-import { SwapComponent } from './modules/swap/component/swap/swap.component';
+import { SwapComponent } from './modules/swap/component/swap.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './modules/user/component/user.component';

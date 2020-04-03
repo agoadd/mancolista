@@ -1,9 +1,11 @@
-import { SwapService } from './../../../../core/services/swap.service';
-import { Component, OnInit } from '@angular/core';
+import { SwapService } from '../../../core/services/swap.service';
+import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/modules/user/user';
 import { CollectionsService } from 'src/app/core/services/collections.service';
 import { Collection } from 'src/app/modules/collection/collection';
+
+
 
 @Component({
   selector: 'app-swap',
@@ -31,5 +33,4 @@ export class SwapComponent implements OnInit {
       });
     });
   }
-
 }
