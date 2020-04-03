@@ -1,0 +1,11 @@
+Ecco chi ha qualcosa per te per l'album: {{collection?.album?.name}}
+<div *ngFor="let user of users">
+  {{user?.username}}
+  <div *ngFor="let collection of user.collections">
+    <div *ngFor="let sticker of collection.stickers">
+      <span>{{sticker?.code}} </span>
+      <span>{{sticker?.description}} </span>
+    </div>
+  </div>
+  <hr>
+</div>

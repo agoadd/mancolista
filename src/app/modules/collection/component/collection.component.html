@@ -12,13 +12,13 @@
       <mat-list-item *ngFor="let sticker of collection.stickers">
         <span class="code">{{sticker.code}}</span>
         <span class="description">{{sticker.description}} </span>
-        <mat-icon class="add" *ngIf="checkMancante(sticker) || checkDoppione(sticker) || checkCelo(sticker)"
-          (click)="increment(sticker,collection)"> add </mat-icon>
+        <mat-icon class="add" *ngIf="checkMancante(sticker) || checkDoppione(sticker) || checkCelo(sticker)" (click)="increment(sticker,collection)"> add </mat-icon>
         <mat-icon class="remove" *ngIf="checkDoppione(sticker)" (click)="decrement(sticker,collection)">remove
         </mat-icon>
         <mat-icon class="unarchive" *ngIf="checkCelo(sticker)" (click)="reset(sticker, collection)">unarchive
         </mat-icon>
       </mat-list-item>
     </mat-list>
+    <a [routerLink]="['/swap', collection.id]">Scambia</a>
   </mat-expansion-panel>
 </mat-accordion>

@@ -22,6 +22,7 @@ import { UserComponent } from './modules/user/component/user.component';
 import { CollectionComponent } from './modules/collection/component/collection.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { DialogComponent } from './shared/components/dialog/dialog.component';
+import { SwapComponent } from './modules/swap/component/swap/swap.component';
 
 @NgModule({
    declarations: [
@@ -35,7 +36,8 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
       UserComponent,
       CollectionComponent,
       PageNotFoundComponent,
-      DialogComponent
+      DialogComponent,
+      SwapComponent
    ],
    imports: [
       BrowserModule,

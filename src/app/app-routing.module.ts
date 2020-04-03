@@ -1,3 +1,4 @@
+import { SwapComponent } from './modules/swap/component/swap/swap.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './modules/user/component/user.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'user', component: UserComponent, canActivate: [AuthorizationGuard] },
   { path: 'album', component: AlbumComponent },
   { path: 'new-album', component: NewAlbumComponent, canActivate: [NavigationGuard] },
+  { path: 'swap/:id', component: SwapComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
