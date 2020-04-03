@@ -10,8 +10,7 @@ export class NavigationGuard implements CanActivate {
   constructor(public authService: AuthenticationService, public router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.authService.isLoggedIn) this.router.navigate(['signin']);
-    if (!this.authService.isAdmin) this.router.navigate(['signin']);
+    if (!this.authService.isAdmin) return false; //fare redirect su pagina errore
     return true;
   }
 }

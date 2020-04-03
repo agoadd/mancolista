@@ -1,0 +1,24 @@
+:host {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+}
+
+mat-dialog-container {
+    max-width: 400px;
+}
+
+mat-dialog-title {
+    margin: 0;
+}
+
+mat-form-field {
+    width: 100%;
+    min-width: 100px;
+    margin-top: 20px;
+}
+
+mat-dialog-actions .button {
+    justify-content: flex-end;
+    margin: 20px 0 0 0;
+}

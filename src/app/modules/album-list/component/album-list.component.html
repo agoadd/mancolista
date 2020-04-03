@@ -1,0 +1,7 @@
+<mat-card *ngFor="let album of albums">
+  <mat-card-title>{{album?.name}}</mat-card-title>
+  <img mat-card-image src="{{album?.coverPath}}">
+  <mat-card-actions>
+    <button mat-mini-fab color="primary" (click)=addCollectionToUser(album)>+</button>
+  </mat-card-actions>
+</mat-card>

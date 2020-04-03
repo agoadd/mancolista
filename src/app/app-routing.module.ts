@@ -2,8 +2,8 @@ import { SwapComponent } from './modules/swap/component/swap/swap.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './modules/user/component/user.component';
+import { AlbumListComponent } from './modules/album-list/component/album-list.component';
 import { AlbumComponent } from './modules/album/component/album.component';
-import { NewAlbumComponent } from './modules/new-album/component/new-album.component';
 import { SigninComponent } from './core/authentication/components/signin/signin.component';
 import { ForgotPasswordComponent } from './core/authentication/components/forgot-password/forgot-password.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
@@ -16,9 +16,9 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'reset-password', component: ForgotPasswordComponent },
   { path: 'user', component: UserComponent, canActivate: [AuthorizationGuard] },
-  { path: 'album', component: AlbumComponent },
-  { path: 'new-album', component: NewAlbumComponent, canActivate: [NavigationGuard] },
   { path: 'swap/:id', component: SwapComponent },
+  { path: 'album', component: AlbumListComponent },
+  { path: 'new-album', component: AlbumComponent, canActivate: [AuthorizationGuard, NavigationGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -1,4 +1,5 @@
-<mat-card class="w-45" *ngIf="!(authService.user |async)">
+<ng-template #container></ng-template>
+<mat-card class="w-45" *ngIf="!(authService.user | async)">
   <mat-card-header>
     <mat-card-title>Effettua il login</mat-card-title>
   </mat-card-header>
